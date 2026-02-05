@@ -1,660 +1,109 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Lucas Rossi — Portfolio (Netflix)</title>
+<meta charset="UTF-8">
+<title>Lucas Rossi — Portfolio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;900&display=swap" rel="stylesheet">
 
-  <style>
-    :root{
-      --bg:#0b0b0f;
-      --muted:rgba(255,255,255,.72);
-      --muted2:rgba(255,255,255,.56);
-      --stroke:rgba(255,255,255,.10);
-      --stroke2:rgba(255,255,255,.16);
-      --shadow: 0 18px 55px rgba(0,0,0,.55);
-      --radius: 16px;
-      --radius2: 22px;
-      --red:#e50914;
-    }
-    *{ box-sizing:border-box; }
-    body{
-      margin:0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: var(--bg);
-      color:#fff;
-      overflow-x:hidden;
-    }
+<style>
+body{
+margin:0;
+background:#0b0b0f;
+font-family:Inter,sans-serif;
+color:white;
+}
 
-    /* Topbar */
-    .topbar{
-      position:sticky; top:0; z-index:50;
-      backdrop-filter: blur(14px);
-      background: linear-gradient(to bottom, rgba(0,0,0,.72), rgba(0,0,0,.25));
-      border-bottom: 1px solid rgba(255,255,255,.06);
-    }
-    .topbar-inner{
-      max-width: 1200px;
-      margin:0 auto;
-      padding: 14px 18px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-    }
-    .brand{ display:flex; align-items:center; gap:12px; }
-    .logo{
-      width: 28px; height: 28px; border-radius: 8px;
-      background: linear-gradient(135deg, var(--red), rgba(229,9,20,.55));
-      box-shadow: 0 10px 26px rgba(229,9,20,.22);
-    }
-    .brand-title{ display:flex; flex-direction:column; line-height:1.05; }
-    .brand-title strong{ font-weight:900; letter-spacing:.2px; }
-    .brand-title span{ font-size:12px; color:var(--muted2); margin-top:2px; }
+header{
+padding:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:rgba(0,0,0,.7);
+position:sticky;
+top:0;
+}
 
-    .nav{ display:flex; gap:10px; overflow:auto; }
-    .nav a{
-      color:var(--muted2); text-decoration:none;
-      padding:8px 10px; border-radius:999px;
-      border:1px solid transparent; transition:.18s ease;
-      white-space:nowrap; font-size:14px;
-    }
-    .nav a:hover{
-      color:#fff;
-      border-color: rgba(255,255,255,.10);
-      background: rgba(255,255,255,.06);
-    }
+.logo{font-weight:900;font-size:20px}
 
-    .pill{
-      display:inline-flex; align-items:center; gap:10px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.06);
-      color:#fff; text-decoration:none;
-      font-weight:700; font-size:14px;
-      transition:.18s ease;
-    }
-    .pill:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.16); }
-    .pill.red{
-      border-color: rgba(229,9,20,.35);
-      background: rgba(229,9,20,.16);
-    }
-    .pill.red:hover{ background: rgba(229,9,20,.24); border-color: rgba(229,9,20,.55); }
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+gap:20px;
+padding:40px;
+}
 
-    /* Hero com banner real */
-    .hero{
-      max-width: 1200px; margin:0 auto; padding: 26px 18px 10px;
-    }
-    .hero-card{
-      position:relative;
-      border-radius: var(--radius2);
-      overflow:hidden;
-      border: 1px solid rgba(255,255,255,.10);
-      box-shadow: var(--shadow);
-      min-height: 380px;
-      background-size: cover;
-      background-position: center;
-    }
-    .hero-card::after{
-      content:"";
-      position:absolute; inset:0;
-      background: linear-gradient(to right, rgba(0,0,0,.88), rgba(0,0,0,.45), rgba(0,0,0,.10));
-    }
-    .hero-content{
-      position:absolute; inset:0;
-      padding: 26px;
-      display:flex; flex-direction:column; justify-content:flex-end;
-      gap: 12px;
-    }
-    .badge{
-      display:inline-flex; align-items:center; gap:10px;
-      width: fit-content;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(0,0,0,.35);
-      border: 1px solid rgba(255,255,255,.14);
-      color: rgba(255,255,255,.86);
-      font-size: 12px;
-    }
-    .badge .dot{
-      width:8px;height:8px;border-radius:999px;background: var(--red);
-      box-shadow: 0 0 0 4px rgba(229,9,20,.18);
-    }
-    .hero-title{
-      font-size: 46px; line-height:1.03; margin:0;
-      font-weight: 900; letter-spacing:-.9px;
-      text-shadow: 0 12px 30px rgba(0,0,0,.60);
-    }
-    .hero-sub{
-      margin:0; max-width: 66ch;
-      color: rgba(255,255,255,.80);
-      line-height: 1.6; font-size: 15px;
-    }
-    .hero-ctas{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 6px; }
-    .meta{ display:flex; gap:10px; flex-wrap:wrap; font-size:12px; color: rgba(255,255,255,.65); }
-    .meta span{
-      padding: 6px 10px; border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.28);
-    }
+.card{
+background:#111;
+border-radius:18px;
+overflow:hidden;
+transition:.3s;
+cursor:pointer;
+}
 
-    /* Seções e trilhos */
-    .section{ max-width: 1200px; margin: 0 auto; padding: 16px 0 34px; }
-    .section-header{
-      padding: 0 18px;
-      display:flex; align-items:flex-end; justify-content:space-between;
-      gap:12px;
-    }
-    .section-header h2{ margin:0; font-size: 18px; font-weight:900; }
-    .section-header p{ margin:0; font-size: 13px; color: rgba(255,255,255,.55); }
+.card:hover{
+transform:scale(1.05);
+}
 
-    .row{ padding: 0 18px; margin-top: 12px; }
-    .rail{
-      display:flex; gap: 12px;
-      overflow:auto; padding: 10px 6px 18px;
-      scroll-snap-type: x mandatory;
-      scrollbar-width: thin;
-    }
-    .rail::-webkit-scrollbar{ height: 10px; }
-    .rail::-webkit-scrollbar-thumb{ background: rgba(255,255,255,.12); border-radius: 999px; }
-    .rail::-webkit-scrollbar-track{ background: rgba(255,255,255,.04); border-radius: 999px; }
+.card img{
+width:100%;
+display:block;
+}
 
-    /* Card estilo Netflix com thumb real */
-    .card{
-      scroll-snap-align: start;
-      flex: 0 0 auto;
-      width: 260px;
-      border-radius: 18px;
-      overflow:hidden;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      box-shadow: 0 16px 40px rgba(0,0,0,.42);
-      cursor:pointer;
-      transition: transform .18s ease, border-color .18s ease, filter .18s ease;
-      position:relative;
-    }
-    .card:hover{
-      transform: translateY(-7px) scale(1.03);
-      border-color: rgba(255,255,255,.18);
-      filter: brightness(1.05);
-    }
+.title{
+padding:10px;
+font-weight:700;
+}
 
-    .poster{
-      height: 150px;
-      background-size: cover;
-      background-position: center;
-      position:relative;
-    }
-    .poster::after{
-      content:"";
-      position:absolute; inset:0;
-      background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,.78));
-    }
+.hero{
+height:60vh;
+background:url("./assets/1.jpg") center/cover;
+display:flex;
+align-items:end;
+padding:40px;
+font-size:40px;
+font-weight:900;
+}
 
-    .rating{
-      position:absolute; top: 10px; left: 10px;
-      display:flex; align-items:center; gap:8px;
-      padding: 7px 10px;
-      border-radius: 999px;
-      background: rgba(0,0,0,.35);
-      border: 1px solid rgba(255,255,255,.14);
-      font-size: 12px;
-      color: rgba(255,255,255,.88);
-      backdrop-filter: blur(10px);
-    }
-    .rating .r{ width:8px;height:8px;border-radius:999px;background: rgba(255,255,255,.85); opacity:.85; }
-
-    .card-body{
-      padding: 12px 14px 14px;
-      display:flex; flex-direction:column; gap: 8px;
-      min-height: 130px;
-    }
-    .card-title{ margin:0; font-size: 14px; font-weight: 900; letter-spacing:.2px; }
-    .card-desc{
-      margin:0; font-size: 12px; color: rgba(255,255,255,.70); line-height:1.5;
-      display:-webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
-      overflow:hidden; min-height: 36px;
-    }
-    .tags{ display:flex; flex-wrap:wrap; gap:6px; margin-top:auto; }
-    .tag{
-      font-size: 11px;
-      color: rgba(255,255,255,.72);
-      border: 1px solid rgba(255,255,255,.10);
-      padding: 6px 8px;
-      border-radius: 999px;
-      background: rgba(0,0,0,.20);
-    }
-
-    /* Modal */
-    .modal-backdrop{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,.70);
-      display:none; align-items:center; justify-content:center;
-      padding: 18px; z-index:80;
-    }
-    .modal{
-      width: min(900px, 100%);
-      border-radius: 22px;
-      overflow:hidden;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(16,16,24,.92);
-      box-shadow: 0 28px 90px rgba(0,0,0,.70);
-      backdrop-filter: blur(16px);
-      transform: translateY(10px);
-      opacity:0;
-      transition: .18s ease;
-    }
-    .modal-backdrop.show{ display:flex; }
-    .modal-backdrop.show .modal{ transform: translateY(0); opacity:1; }
-
-    .modal-hero{
-      height: 260px;
-      background-size: cover;
-      background-position: center;
-      position:relative;
-    }
-    .modal-hero::after{
-      content:"";
-      position:absolute; inset:0;
-      background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,.86));
-    }
-    .modal-close{
-      position:absolute; top: 14px; right: 14px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.35);
-      color:#fff;
-      border-radius: 999px;
-      padding: 10px 12px;
-      cursor:pointer;
-      font-weight:900;
-      backdrop-filter: blur(10px);
-      z-index:2;
-    }
-    .modal-content{
-      padding: 18px;
-      display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 14px;
-    }
-    .modal-content h3{ margin:0 0 10px; font-size: 22px; font-weight: 900; }
-    .modal-content p{ margin:0; color: rgba(255,255,255,.74); line-height: 1.7; font-size: 14px; }
-    .modal-box{
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.20);
-      border-radius: 16px;
-      padding: 14px;
-      display:flex; flex-direction:column; gap: 10px;
-      height: fit-content;
-    }
-    .rowline{
-      display:flex; justify-content:space-between; gap:10px;
-      color: rgba(255,255,255,.70);
-      font-size: 13px;
-      padding: 8px 0;
-      border-bottom: 1px solid rgba(255,255,255,.08);
-    }
-    .rowline:last-child{ border-bottom:none; }
-    .modal-box b{ color:#fff; }
-    .modal-actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 10px; }
-
-    /* Footer */
-    .footer{
-      max-width:1200px;
-      margin: 0 auto;
-      padding: 10px 18px 40px;
-      color: rgba(255,255,255,.55);
-      font-size: 12px;
-      display:flex; justify-content:space-between;
-      gap: 10px; flex-wrap:wrap;
-    }
-    .footer a{ color: rgba(255,255,255,.72); text-decoration:none; }
-    .footer a:hover{ color:#fff; }
-
-    @media (max-width: 980px){
-      .modal-content{ grid-template-columns: 1fr; }
-      .hero-title{ font-size: 38px; }
-      .nav{ display:none; }
-    }
-    @media (max-width: 520px){
-      .hero-title{ font-size: 32px; }
-      .card{ width: 220px; }
-      .poster{ height: 140px; }
-    }
-  </style>
+footer{
+text-align:center;
+opacity:.5;
+padding:30px;
+}
+</style>
 </head>
 
 <body>
-  <header class="topbar">
-    <div class="topbar-inner">
-      <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
-        <div class="brand-title">
-          <strong>Lucas Rossi</strong>
-          <span>Designer • Catálogo de projetos</span>
-        </div>
-      </div>
 
-      <nav class="nav">
-        <a href="#projetos">Projetos</a>
-        <a href="#social">Social</a>
-        <a href="#esportes">Esportes</a>
-        <a href="#contato">Contato</a>
-      </nav>
+<header>
+<div class="logo">Lucas Rossi</div>
+<div>Designer Gráfico</div>
+</header>
 
-      <a class="pill red" href="#contato">Falar comigo</a>
-    </div>
-  </header>
+<section class="hero">
+Meu Portfólio
+</section>
 
-  <main class="hero">
-    <!-- Troque a imagem do banner aqui se quiser -->
-    <section class="hero-card" style="background-image:url('assets/strike.png');">
-      <div class="hero-content">
-        <div class="badge"><span class="dot"></span> Top picks • 2026</div>
-        <h1 class="hero-title">Meu portfólio, estilo Netflix.</h1>
-        <p class="hero-sub">
-          Navegue pelos meus projetos como se fosse um catálogo. Clique em qualquer card pra ver detalhes.
-          (Agora é só plugar seus cases com descrição e link.)
-        </p>
-        <div class="hero-ctas">
-          <a class="pill red" href="#projetos">▶ Explorar</a>
-          <a class="pill" href="#contato">＋ Contato</a>
-        </div>
-        <div class="meta">
-          <span>Direção de Arte</span>
-          <span>Social Media</span>
-          <span>Branding</span>
-          <span>Key Visual</span>
-        </div>
-      </div>
-    </section>
-  </main>
+<section class="grid">
 
-  <section id="projetos" class="section">
-    <div class="section-header">
-      <div>
-        <h2>Continue assistindo (top projetos)</h2>
-        <p>Thumbnails reais (as artes que você mandou).</p>
-      </div>
-    </div>
-    <div class="row"><div class="rail" id="rail-top"></div></div>
+<div class="card"><img src="./assets/1.jpg"><div class="title">Projeto 1</div></div>
+<div class="card"><img src="./assets/2.jpg"><div class="title">Projeto 2</div></div>
+<div class="card"><img src="./assets/3.jpg"><div class="title">Projeto 3</div></div>
+<div class="card"><img src="./assets/4.jpg"><div class="title">Projeto 4</div></div>
+<div class="card"><img src="./assets/10.jpg"><div class="title">Projeto 5</div></div>
+<div class="card"><img src="./assets/11.jpg"><div class="title">Projeto 6</div></div>
+<div class="card"><img src="./assets/12.png"><div class="title">Projeto 7</div></div>
+<div class="card"><img src="./assets/13.jpg"><div class="title">Projeto 8</div></div>
+<div class="card"><img src="./assets/14.png"><div class="title">Projeto 9</div></div>
+<div class="card"><img src="./assets/15.jpg"><div class="title">Projeto 10</div></div>
+<div class="card"><img src="./assets/16.png"><div class="title">Projeto 11</div></div>
 
-    <div class="section-header" id="social">
-      <div>
-        <h2>Social Media & Campanhas</h2>
-        <p>Posts, anúncios, criativos e performance visual.</p>
-      </div>
-    </div>
-    <div class="row"><div class="rail" id="rail-social"></div></div>
+</section>
 
-    <div class="section-header" id="esportes">
-      <div>
-        <h2>Esportes & Posters</h2>
-        <p>Key visuals com textura, recortes e impacto.</p>
-      </div>
-    </div>
-    <div class="row"><div class="rail" id="rail-sports"></div></div>
-  </section>
+<footer>
+© Lucas Rossi
+</footer>
 
-  <section id="contato" class="section">
-    <div class="section-header">
-      <div>
-        <h2>Contato</h2>
-        <p>Troque pelos seus links reais.</p>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="rail" style="padding-bottom:10px;">
-        <div class="card" style="width:min(560px, 92vw);"
-          data-title="Vamos conversar?"
-          data-desc="Me chama e eu deixo esse portfólio pronto pra vaga: cases, textos, links, thumbnails e apresentação."
-          data-type="Contato"
-          data-year="2026"
-          data-stack="WhatsApp • Email • LinkedIn • Behance"
-          data-link="#"
-          data-image="assets/unemix-pizza.png">
-          <div class="poster" style="background-image:url('assets/unemix-pizza.png');"></div>
-          <div class="rating"><span class="r"></span> Disponível</div>
-          <div class="card-body" style="min-height:unset;">
-            <p class="card-title">Contato rápido</p>
-            <p class="card-desc">WhatsApp • Email • LinkedIn • Behance</p>
-            <div class="tags">
-              <span class="tag">WhatsApp</span>
-              <span class="tag">LinkedIn</span>
-              <span class="tag">Behance</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="footer">
-      <span>© <span id="year"></span> Lucas Rossi</span>
-      <span>
-        <a href="#" title="troque pelo seu LinkedIn">LinkedIn</a> ·
-        <a href="#" title="troque pelo seu Behance">Behance</a> ·
-        <a href="#" title="troque pelo seu Instagram">Instagram</a>
-      </span>
-    </div>
-  </section>
-
-  <!-- Modal -->
-  <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true">
-      <div class="modal-hero" id="modalHero">
-        <button class="modal-close" id="modalClose" aria-label="Fechar">✕</button>
-      </div>
-      <div class="modal-content">
-        <div>
-          <h3 id="modalTitle">Título</h3>
-          <p id="modalDesc">Descrição</p>
-          <div class="modal-actions">
-            <a class="pill red" id="modalLink" href="#" target="_blank" rel="noopener">Abrir projeto</a>
-            <a class="pill" href="#contato">Me chamar</a>
-          </div>
-        </div>
-        <div class="modal-box">
-          <div class="rowline"><span>Categoria</span><b id="modalType">—</b></div>
-          <div class="rowline"><span>Ano</span><b id="modalYear">—</b></div>
-          <div class="rowline"><span>Stack</span><b id="modalStack">—</b></div>
-          <div class="rowline"><span>Status</span><b>Publicável</b></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // 🔥 TROQUE AQUI os textos e links quando quiser.
-    // Os nomes de imagem precisam bater com seus arquivos dentro de /assets.
-
-    const rows = {
-      top: [
-        {
-          title: "Linha Strike — Key Visual",
-          desc: "Key visual com recorte, textura e tipografia forte (vibe street/fitness).",
-          tags: ["Key Visual", "Produto", "Direção de Arte"],
-          type: "Destaque",
-          year: "2026",
-          stack: "Photoshop",
-          link: "#",
-          image: "assets/strike.png"
-        },
-        {
-          title: "Unemix — Pizza + Cashback",
-          desc: "Criativo promocional com apelo visual + CTA forte e composição clean.",
-          tags: ["Ads", "Promo", "Food"],
-          type: "Destaque",
-          year: "2026",
-          stack: "Photoshop/Canva",
-          link: "#",
-          image: "assets/unemix-pizza.png"
-        },
-        {
-          title: "PIX Solar — Campanha",
-          desc: "Criativo temático com metáfora visual e hierarquia bem resolvida.",
-          tags: ["Campanha", "Social", "Composição"],
-          type: "Destaque",
-          year: "2023",
-          stack: "Photoshop",
-          link: "#",
-          image: "assets/pix-solar-golaco.png"
-        }
-      ],
-
-      social: [
-        {
-          title: "DOC Pré-Moldados — Carrossel/Institucional",
-          desc: "Linguagem corporativa limpa, grid consistente e uso de fotos com moldura.",
-          tags: ["Institucional", "Carrossel", "Grid"],
-          type: "Social Media",
-          year: "2025",
-          stack: "Illustrator/Canva",
-          link: "#",
-          image: "assets/doc-premoldados.png"
-        },
-        {
-          title: "Futshop — Oferta (Kit 2 camisas)",
-          desc: "Peça de venda com destaque para preço e call-to-action de WhatsApp.",
-          tags: ["Oferta", "E-commerce", "CTA"],
-          type: "Social Media",
-          year: "2024",
-          stack: "Photoshop",
-          link: "#",
-          image: "assets/futshop-kit.png"
-        },
-        {
-          title: "Unemix — Food Ad",
-          desc: "Composição simples e direta: produto no centro + CTA e elementos de engajamento.",
-          tags: ["Food", "Ads", "Promo"],
-          type: "Social Media",
-          year: "2026",
-          stack: "Photoshop/Canva",
-          link: "#",
-          image: "assets/unemix-pizza.png"
-        }
-      ],
-
-      sports: [
-        {
-          title: "Poster — Pedro Manoel",
-          desc: "Poster esportivo com textura, tipografia e clima de jogo.",
-          tags: ["Esporte", "Poster", "Textura"],
-          type: "Esportes",
-          year: "2022",
-          stack: "Photoshop",
-          link: "#",
-          image: "assets/pedro-manoel.png"
-        },
-        {
-          title: "Poster — Ricardo Mathias",
-          desc: "Composição agressiva com recortes e elementos gráficos pra impacto.",
-          tags: ["Esporte", "Recorte", "Key Visual"],
-          type: "Esportes",
-          year: "2022",
-          stack: "Photoshop",
-          link: "#",
-          image: "assets/ricardo-mathias.png"
-        }
-      ]
-    };
-
-    const railTop = document.getElementById("rail-top");
-    const railSocial = document.getElementById("rail-social");
-    const railSports = document.getElementById("rail-sports");
-
-    function escapeHTML(s){
-      return String(s)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
-    }
-
-    function cardHTML(item, idx){
-      const badges = ["Top 10", "Novo", "Destaque", "HD"];
-      const rating = badges[idx % badges.length];
-
-      return `
-        <article class="card"
-          data-title="${escapeHTML(item.title)}"
-          data-desc="${escapeHTML(item.desc)}"
-          data-type="${escapeHTML(item.type)}"
-          data-year="${escapeHTML(item.year)}"
-          data-stack="${escapeHTML(item.stack)}"
-          data-link="${escapeHTML(item.link)}"
-          data-image="${escapeHTML(item.image)}"
-        >
-          <div class="poster" style="background-image:url('${escapeHTML(item.image)}');"></div>
-          <div class="rating"><span class="r"></span> ${rating}</div>
-          <div class="card-body">
-            <h3 class="card-title">${escapeHTML(item.title)}</h3>
-            <p class="card-desc">${escapeHTML(item.desc)}</p>
-            <div class="tags">
-              ${item.tags.map(t => `<span class="tag">${escapeHTML(t)}</span>`).join("")}
-            </div>
-          </div>
-        </article>
-      `;
-    }
-
-    function renderRail(el, items){
-      el.innerHTML = items.map((it, i) => cardHTML(it, i)).join("");
-    }
-
-    renderRail(railTop, rows.top);
-    renderRail(railSocial, rows.social);
-    renderRail(railSports, rows.sports);
-
-    // Modal
-    const backdrop = document.getElementById("modalBackdrop");
-    const closeBtn = document.getElementById("modalClose");
-    const mHero = document.getElementById("modalHero");
-    const mTitle = document.getElementById("modalTitle");
-    const mDesc  = document.getElementById("modalDesc");
-    const mType  = document.getElementById("modalType");
-    const mYear  = document.getElementById("modalYear");
-    const mStack = document.getElementById("modalStack");
-    const mLink  = document.getElementById("modalLink");
-
-    function openModal(card){
-      const d = card.dataset;
-      mTitle.textContent = d.title || "Projeto";
-      mDesc.textContent  = d.desc || "";
-      mType.textContent  = d.type || "—";
-      mYear.textContent  = d.year || "—";
-      mStack.textContent = d.stack || "—";
-      mHero.style.backgroundImage = d.image ? `url('${d.image}')` : "";
-
-      const hasLink = d.link && d.link !== "#";
-      mLink.href = hasLink ? d.link : "#";
-      mLink.style.display = hasLink ? "inline-flex" : "none";
-
-      backdrop.classList.add("show");
-      backdrop.setAttribute("aria-hidden","false");
-      document.body.style.overflow = "hidden";
-    }
-
-    function closeModal(){
-      backdrop.classList.remove("show");
-      backdrop.setAttribute("aria-hidden","true");
-      document.body.style.overflow = "";
-    }
-
-    document.addEventListener("click", (e) => {
-      const card = e.target.closest(".card");
-      if(card && !card.closest(".modal")) openModal(card);
-      if(e.target === backdrop) closeModal();
-    });
-    closeBtn.addEventListener("click", closeModal);
-    document.addEventListener("keydown", (e) => { if(e.key === "Escape") closeModal(); });
-
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
 </body>
 </html>
