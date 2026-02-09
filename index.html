@@ -643,6 +643,66 @@
       .modal-body{grid-template-columns: 1fr; }
       .profile-card{min-height: unset}
     }
+
+    /* =========================================================
+       PATCH 01 — MOBILE: capas não cortarem (cards da esteira)
+       Mantém desktop cover; no mobile vira contain.
+    ========================================================= */
+    @media (max-width: 768px){
+      .poster{
+        aspect-ratio: 16/10;
+        padding: 12px;
+      }
+      .poster img{
+        object-fit: contain;
+        opacity: 1;
+        background: rgba(0,0,0,.15);
+      }
+      .poster::after{
+        background: linear-gradient(0deg, rgba(7,10,18,.78), rgba(7,10,18,.12));
+      }
+    }
+
+    /* =========================================================
+       PATCH 02 — SOBRE: glass buttons das ferramentas
+    ========================================================= */
+    .tool-glass{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top: 12px;
+    }
+    .tool-btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      font-size: 12.5px;
+      font-weight: 700;
+      letter-spacing: .2px;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+      user-select:none;
+      cursor: default;
+    }
+    .tool-btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.20);
+    }
+    .tool-dot{
+      width:10px;
+      height:10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.75);
+      box-shadow: 0 0 0 5px rgba(255,255,255,.08);
+    }
+    .tool-btn.ps .tool-dot{ background: rgba(49,168,255,.95); }
+    .tool-btn.ai .tool-dot{ background: rgba(255,159,0,.95); }
+    .tool-btn.ae .tool-dot{ background: rgba(153,102,255,.95); }
+    .tool-btn.pr .tool-dot{ background: rgba(153,153,255,.95); }
   </style>
 </head>
 
@@ -701,33 +761,43 @@
         </div>
       </div>
 
+      <!-- SOBRE (novo, dinâmico) -->
       <aside class="profile-card" id="sobre">
         <div class="profile-top">
           <div>
             <div class="badge"><i></i> Designer Pleno • visão de marketing</div>
+
             <p class="mini">
-              Além do visual, eu entendo o contexto: objetivo, público, formato, e o que precisa acontecer depois que a pessoa vê a peça.
-              Isso muda tudo no resultado final.
+              Eu organizo a informação antes de “embelezar”.
+              Primeiro: hierarquia e clareza. Depois: impacto.
+              Isso muda o resultado final — especialmente em B2B.
             </p>
           </div>
         </div>
 
-        <div>
-          <div class="skills" aria-label="Habilidades">
-            <span class="chip cyan">Social Media</span>
-            <span class="chip purple">Campanhas</span>
-            <span class="chip cyan">Motion (Reels)</span>
-            <span class="chip purple">Marketing Digital</span>
-            <span class="chip">Brand consistency</span>
-            <span class="chip">Layout / Grid</span>
-            <span class="chip">Copy-aware Design</span>
-          </div>
-
-          <p class="mini" style="margin-top:12px">
-            <b style="color:var(--text)">Foco de entrega:</b> peças com leitura rápida, boa hierarquia e “cara de marca”.
-            <br/>Isso serve tanto pra vaga quanto pra freela.
-          </p>
+        <!-- Ferramentas em glass buttons -->
+        <div class="tool-glass" aria-label="Ferramentas principais">
+          <span class="tool-btn ps"><span class="tool-dot"></span> Photoshop</span>
+          <span class="tool-btn ai"><span class="tool-dot"></span> Illustrator</span>
+          <span class="tool-btn ae"><span class="tool-dot"></span> After Effects</span>
+          <span class="tool-btn pr"><span class="tool-dot"></span> Premiere</span>
         </div>
+
+        <!-- Skills gerais (mantém chips) -->
+        <div class="skills" aria-label="Habilidades" style="margin-top:12px">
+          <span class="chip cyan">Social estratégico</span>
+          <span class="chip purple">Campanhas</span>
+          <span class="chip cyan">Motion (Reels)</span>
+          <span class="chip purple">Marketing Digital</span>
+          <span class="chip">Brand consistency</span>
+          <span class="chip">Layout / Grid</span>
+          <span class="chip">Copy-aware Design</span>
+        </div>
+
+        <p class="mini" style="margin-top:12px">
+          <b style="color:var(--text)">Foco de entrega:</b> peças com leitura rápida, boa hierarquia e “cara de marca”.
+          <br/>Isso serve tanto pra vaga quanto pra freela.
+        </p>
       </aside>
     </section>
 
@@ -865,7 +935,7 @@
 
   <script>
     // =========================================
-    // DADOS DOS PROJETOS (você só troca imagens/vídeos na pasta)
+    // DADOS DOS PROJETOS (mantidos com seus paths)
     // =========================================
     const projects = [
       {
@@ -1121,7 +1191,7 @@
       mRole.textContent = p.role;
       mDesc.textContent = p.desc;
 
-      // KPIs/Heurísticas (pra mostrar “pleno” de performance)
+      // KPIs/Heurísticas
       mKpis.innerHTML = "";
       p.kpis.forEach(k => {
         const chip = document.createElement("div");
@@ -1151,7 +1221,6 @@
 
           const im = document.createElement("img");
           im.alt = "Miniatura";
-          // pra vídeo, tentamos usar a capa do cover como thumb (simples e leve)
           im.src = it.kind === "video" ? p.cover : it.src;
           im.loading = "lazy";
           im.onerror = () => { im.style.display="none"; };
@@ -1183,7 +1252,6 @@
       modal.setAttribute("aria-hidden","false");
       closeBtn.focus();
 
-      // trava scroll
       document.body.style.overflow = "hidden";
     }
 
@@ -1208,6 +1276,3 @@
   </script>
 </body>
 </html>
-
-
-
