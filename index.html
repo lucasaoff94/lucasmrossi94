@@ -135,35 +135,54 @@
       padding: 0 20px;
     }
 
-    /* Hero */
+    /* HERO (banner único) */
     .hero{
       padding: 56px 0 30px;
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap:26px;
-      align-items:stretch;
+      display:block;
     }
-    .hero-card{
+
+    .hero-banner{
       border-radius: var(--radius2);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
       border: 1px solid rgba(255,255,255,.12);
       box-shadow: var(--shadow);
       overflow:hidden;
       position:relative;
-      padding: 26px;
+      min-height: 420px;
+      background: rgba(255,255,255,.02);
     }
-    .hero-card::before{
+
+    .hero-banner img.hero-bg{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      opacity:.95;
+      transform: scale(1.02);
+      filter: saturate(1.05) contrast(1.05);
+    }
+
+    .hero-banner::after{
       content:"";
-      position:absolute; inset:-2px;
+      position:absolute;
+      inset:0;
       background:
-        radial-gradient(500px 250px at 20% 15%, rgba(46,242,255,.18), transparent 60%),
-        radial-gradient(550px 280px at 90% 25%, rgba(138,92,255,.16), transparent 60%),
-        radial-gradient(500px 280px at 60% 110%, rgba(182,255,77,.08), transparent 60%);
+        linear-gradient(90deg, rgba(7,10,18,.92) 0%, rgba(7,10,18,.62) 48%, rgba(7,10,18,.20) 100%),
+        radial-gradient(700px 360px at 20% 20%, rgba(46,242,255,.12), transparent 60%),
+        radial-gradient(700px 360px at 80% 25%, rgba(138,92,255,.12), transparent 60%);
       pointer-events:none;
-      filter: blur(2px);
-      opacity:.9;
     }
-    .hero-card > *{position:relative}
+
+    .hero-content{
+      position:relative;
+      z-index:2;
+      padding: 26px;
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 18px;
+      align-items:end;
+    }
+
     .kicker{
       display:inline-flex;
       align-items:center;
@@ -236,55 +255,13 @@
       line-height:1.35;
     }
 
-    /* About card (imagem + overlay) */
-    .profile-card{
-      border-radius: var(--radius2);
-      background: linear-gradient(180deg, rgba(17,26,46,.75), rgba(14,20,36,.65));
-      border: 1px solid rgba(255,255,255,.12);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      position:relative;
-      padding: 0; /* agora a imagem controla o padding */
+    /* ABOUT dentro do HERO (lado direito) */
+    .hero-right{
       display:flex;
       flex-direction:column;
-      justify-content:space-between;
-      gap:0;
-      min-height: 300px;
-    }
-
-    .about-hero{
-      position:relative;
-      width:100%;
-      height:100%;
-      min-height: 300px;
-      overflow:hidden;
-      display:flex;
-    }
-
-    .about-hero img{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      object-fit: cover;
-      transform: scale(1.02);
-      filter: saturate(1.05) contrast(1.05);
-      opacity:.95;
-    }
-
-    .about-overlay{
-      position:relative;
-      z-index:2;
-      width:100%;
-      padding: 18px;
-      display:flex;
-      flex-direction:column;
-      justify-content:flex-end;
-      gap:10px;
-      background:
-        linear-gradient(0deg, rgba(7,10,18,.90), rgba(7,10,18,.35) 55%, rgba(7,10,18,.12)),
-        radial-gradient(600px 320px at 20% 20%, rgba(46,242,255,.10), transparent 60%),
-        radial-gradient(600px 320px at 90% 30%, rgba(138,92,255,.10), transparent 60%);
+      gap: 12px;
+      align-items:flex-end;
+      text-align:right;
     }
 
     .badge{
@@ -307,20 +284,12 @@
       display:inline-block;
     }
 
-    .about-title{
-      margin: 2px 0 0;
-      font-family: Orbitron, Inter, sans-serif;
-      letter-spacing:.4px;
-      font-size: 18px;
-      line-height:1.15;
-    }
-
-    .about-sub{
-      margin:0;
+    .hero-mini{
       color: var(--muted);
-      font-size: 12.7px;
+      font-size: 12.5px;
       line-height:1.45;
-      max-width: 52ch;
+      max-width: 46ch;
+      margin:0;
     }
 
     .about-bullets{
@@ -330,23 +299,6 @@
       color: rgba(234,240,255,.88);
       font-size: 12px;
     }
-
-    .skills{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      margin-top: 10px;
-    }
-    .chip{
-      font-size:12px;
-      color: var(--text);
-      padding:8px 10px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.03);
-    }
-    .chip.cyan{border-color: rgba(46,242,255,.22); background: rgba(46,242,255,.05)}
-    .chip.purple{border-color: rgba(138,92,255,.22); background: rgba(138,92,255,.06)}
 
     /* Tool icons (glass buttons) */
     .tool-glass{
@@ -404,7 +356,24 @@
       border:0;
     }
 
-    /* Rows (Netflix-style) */
+    .skills{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top: 10px;
+    }
+    .chip{
+      font-size:12px;
+      color: var(--text);
+      padding:8px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+    }
+    .chip.cyan{border-color: rgba(46,242,255,.22); background: rgba(46,242,255,.05)}
+    .chip.purple{border-color: rgba(138,92,255,.22); background: rgba(138,92,255,.06)}
+
+    /* Sections */
     .section{
       padding: 12px 0 40px;
     }
@@ -622,7 +591,7 @@
     .viewer-main img, .viewer-main video{
       width:100%;
       height:100%;
-      object-fit:cover; /* desktop mantém cover */
+      object-fit:cover;
       display:block;
     }
     .viewer-thumbs{
@@ -744,11 +713,25 @@
       flex-wrap:wrap;
     }
 
-    /* Responsive base */
+    /* Responsive */
     @media (max-width: 980px){
-      .hero{grid-template-columns: 1fr; }
-      .modal-body{grid-template-columns: 1fr; }
-      .about-hero{min-height: 260px;}
+      .hero-content{
+        grid-template-columns: 1fr;
+        text-align:left;
+      }
+      .hero-right{
+        align-items:flex-start;
+        text-align:left;
+      }
+      .hero-banner{
+        min-height: 560px;
+      }
+      .hero-banner::after{
+        background:
+          linear-gradient(0deg, rgba(7,10,18,.92) 0%, rgba(7,10,18,.62) 50%, rgba(7,10,18,.25) 100%),
+          radial-gradient(700px 360px at 20% 20%, rgba(46,242,255,.12), transparent 60%),
+          radial-gradient(700px 360px at 80% 25%, rgba(138,92,255,.12), transparent 60%);
+      }
     }
 
     /* =========================================================
@@ -800,92 +783,77 @@
 
       <nav class="nav" aria-label="Navegação">
         <a class="pill" href="#projetos">Projetos</a>
-        <a class="pill" href="#sobre">Sobre</a>
+        <a class="pill" href="#topo">Sobre</a>
         <a class="pill primary" href="#contato">Contato</a>
       </nav>
     </div>
   </header>
 
   <main class="wrap">
-    <!-- HERO -->
+    <!-- HERO (banner único com imagem) -->
     <section class="hero" id="topo">
-      <div class="hero-card">
-        <div class="kicker"><span class="dot"></span> Portfolio estilo Netflix • UX first • Tech Visual</div>
-        <h2 class="headline">
-          Design que <span class="grad">segura atenção</span><br/>
-          e entrega clareza pra converter.
-        </h2>
-        <p class="subhead">
-          Social media, campanhas e motion com direção visual consistente. Eu penso em estética + legibilidade + hierarquia + intenção
-          pra aproximar o visual de resultado.
-        </p>
+      <div class="hero-banner">
+        <img class="hero-bg" src="assets/img/about/about-hero.jpg" alt="Key visual do perfil de Lucas Rossi" loading="lazy">
 
-        <div class="hero-actions">
-          <a class="pill primary" href="#projetos">Ver projetos</a>
-          <a class="pill" href="#contato">Chamar pra freela</a>
-          <a class="pill" href="#" onclick="alert('Troque depois pelo seu LinkedIn/CV em PDF.'); return false;">LinkedIn / CV</a>
-        </div>
+        <div class="hero-content">
+          <!-- LEFT -->
+          <div>
+            <div class="kicker"><span class="dot"></span> Portfolio estilo Netflix • UX first • Tech Visual</div>
+            <h2 class="headline">
+              Design que <span class="grad">segura atenção</span><br/>
+              e entrega clareza pra converter.
+            </h2>
+            <p class="subhead">
+              Social media, campanhas e motion com direção visual consistente. Eu penso em estética + legibilidade + hierarquia + intenção
+              pra aproximar o visual de resultado.
+            </p>
 
-        <div class="stats" aria-label="Destaques profissionais">
-          <div class="stat">
-            <b>Direção visual</b>
-            <span>Grid, tipografia, hierarquia, ritmo, consistência entre peças.</span>
-          </div>
-          <div class="stat">
-            <b>Performance mindset</b>
-            <span>Clareza de mensagem, contraste, CTA, leitura em 1s/3s.</span>
-          </div>
-          <div class="stat">
-            <b>Motion & ritmo</b>
-            <span>Animações curtas, transições limpas, foco no hook.</span>
-          </div>
-        </div>
-      </div>
+            <div class="hero-actions">
+              <a class="pill primary" href="#projetos">Ver projetos</a>
+              <a class="pill" href="#contato">Chamar pra freela</a>
+              <a class="pill" href="#" onclick="alert('Troque depois pelo seu LinkedIn/CV em PDF.'); return false;">LinkedIn / CV</a>
+            </div>
 
-      <!-- SOBRE (imagem + infos reduzidas, sem perder o essencial) -->
-      <aside class="profile-card" id="sobre" aria-label="Sobre mim">
-        <div class="about-hero">
-          <img src="./assets/img/about/about-hero.jpg" alt="Key visual do perfil de Lucas Rossi" loading="lazy"
-               onerror="this.style.display='none'">
-
-          <div class="about-overlay">
-            <div class="badge"><i></i> Designer Pleno • visão de marketing</div>
-
-            <div>
-              <h3 class="about-title">Eu organizo a informação antes de “embelezar”.</h3>
-              <p class="about-sub">
-                Primeiro: hierarquia e clareza. Depois: impacto. Isso acelera entendimento e melhora performance (especialmente em B2B).
-              </p>
-
-              <div class="about-bullets" aria-label="Pontos fortes">
-                <span>• Social estratégico</span>
-                <span>• Motion curto (Reels)</span>
-                <span>• Consistência de marca</span>
-                <span>• Copy-aware design</span>
+            <div class="stats" aria-label="Destaques profissionais">
+              <div class="stat">
+                <b>Direção visual</b>
+                <span>Grid, tipografia, hierarquia, ritmo, consistência entre peças.</span>
+              </div>
+              <div class="stat">
+                <b>Performance mindset</b>
+                <span>Clareza de mensagem, contraste, CTA, leitura em 1s/3s.</span>
+              </div>
+              <div class="stat">
+                <b>Motion & ritmo</b>
+                <span>Animações curtas, transições limpas, foco no hook.</span>
               </div>
             </div>
+          </div>
 
-            <div class="tool-glass" aria-label="Ferramentas principais">
-              <span class="tool-btn" title="Photoshop">
-                <span class="tool-icon ps">Ps</span>
-                <span class="sr-only">Photoshop</span>
-              </span>
-              <span class="tool-btn" title="Illustrator">
-                <span class="tool-icon ai">Ai</span>
-                <span class="sr-only">Illustrator</span>
-              </span>
-              <span class="tool-btn" title="After Effects">
-                <span class="tool-icon ae">Ae</span>
-                <span class="sr-only">After Effects</span>
-              </span>
-              <span class="tool-btn" title="Premiere">
-                <span class="tool-icon pr">Pr</span>
-                <span class="sr-only">Premiere</span>
-              </span>
+          <!-- RIGHT (sobre reduzido) -->
+          <div class="hero-right" aria-label="Sobre mim">
+            <div class="badge"><i></i> Designer Pleno • visão de marketing</div>
+
+            <p class="hero-mini">
+              Eu organizo a informação antes de “embelezar”.
+              <br><b style="color:var(--text)">Hierarquia e clareza</b> primeiro — impacto depois.
+            </p>
+
+            <div class="about-bullets" style="justify-content:flex-end">
+              <span>• Social estratégico</span>
+              <span>• Motion curto (Reels)</span>
+              <span>• Consistência de marca</span>
+              <span>• Copy-aware design</span>
             </div>
 
-            <!-- Mantém infos do sobre, só que em chips (resumo) -->
-            <div class="skills" aria-label="Habilidades principais" style="margin-top:2px">
+            <div class="tool-glass" aria-label="Ferramentas principais" style="justify-content:flex-end">
+              <span class="tool-btn" title="Photoshop"><span class="tool-icon ps">Ps</span><span class="sr-only">Photoshop</span></span>
+              <span class="tool-btn" title="Illustrator"><span class="tool-icon ai">Ai</span><span class="sr-only">Illustrator</span></span>
+              <span class="tool-btn" title="After Effects"><span class="tool-icon ae">Ae</span><span class="sr-only">After Effects</span></span>
+              <span class="tool-btn" title="Premiere"><span class="tool-icon pr">Pr</span><span class="sr-only">Premiere</span></span>
+            </div>
+
+            <div class="skills" style="justify-content:flex-end; margin-top:0">
               <span class="chip cyan">Layout / Grid</span>
               <span class="chip purple">Tipografia</span>
               <span class="chip cyan">Direção de arte</span>
@@ -895,7 +863,7 @@
             </div>
           </div>
         </div>
-      </aside>
+      </div>
     </section>
 
     <!-- ROWS -->
@@ -1032,7 +1000,7 @@
 
   <script>
     // =========================================
-    // DADOS DOS PROJETOS (paths com ./ pra GitHub Pages)
+    // DADOS DOS PROJETOS
     // =========================================
     const projects = [
       {
@@ -1040,7 +1008,7 @@
         title: "Esportivo",
         subtitle: "Cards estáticos + motion (1920x1080) • foco em impacto e leitura rápida",
         tag: "Social Media",
-        cover: "./assets/img/covers/cover-esportivo.jpg",
+        cover: "assets/img/covers/cover-esportivo.jpg",
         type: "Social / Sports",
         deliveries: "6 cards + 1 motion",
         tools: "Photoshop • After Effects",
@@ -1056,13 +1024,13 @@
         ],
         skills: ["Tipografia", "Grid", "Direção visual", "Ritmo de campanha", "Design para performance"],
         items: [
-          { kind:"img", src:"./assets/img/esportivo/esportivo-01.jpg" },
-          { kind:"img", src:"./assets/img/esportivo/esportivo-02.jpg" },
-          { kind:"img", src:"./assets/img/esportivo/esportivo-03.jpg" },
-          { kind:"img", src:"./assets/img/esportivo/esportivo-04.jpg" },
-          { kind:"img", src:"./assets/img/esportivo/esportivo-05.jpg" },
-          { kind:"img", src:"./assets/img/esportivo/esportivo-06.jpg" },
-          { kind:"video", src:"./assets/video/esportivo/esportivo-motion-01.mp4" },
+          { kind:"img", src:"assets/img/esportivo/esportivo-01.jpg" },
+          { kind:"img", src:"assets/img/esportivo/esportivo-02.jpg" },
+          { kind:"img", src:"assets/img/esportivo/esportivo-03.jpg" },
+          { kind:"img", src:"assets/img/esportivo/esportivo-04.jpg" },
+          { kind:"img", src:"assets/img/esportivo/esportivo-05.jpg" },
+          { kind:"img", src:"assets/img/esportivo/esportivo-06.jpg" },
+          { kind:"video", src:"assets/video/esportivo/esportivo-motion-01.mp4" },
         ],
       },
       {
@@ -1070,7 +1038,7 @@
         title: "Pix Solar",
         subtitle: "Carrossel/peças • visual direto pra conversão",
         tag: "Social Media",
-        cover: "./assets/img/covers/cover-pixsolar.jpg",
+        cover: "assets/img/covers/cover-pixsolar.jpg",
         type: "Social / Performance",
         deliveries: "6 cards",
         tools: "Photoshop",
@@ -1086,12 +1054,12 @@
         ],
         skills: ["Design orientado a copy", "Composição", "Consistência de marca", "Hierarquia", "Design para social"],
         items: [
-          { kind:"img", src:"./assets/img/pixsolar/pixsolar-01.jpg" },
-          { kind:"img", src:"./assets/img/pixsolar/pixsolar-02.jpg" },
-          { kind:"img", src:"./assets/img/pixsolar/pixsolar-03.png" },
-          { kind:"img", src:"./assets/img/pixsolar/pixsolar-04.png" },
-          { kind:"img", src:"./assets/img/pixsolar/pixsolar-05.jpg" },
-          { kind:"img", src:"./assets/img/pixsolar/pixsolar-06.jpg" },
+          { kind:"img", src:"assets/img/pixsolar/pixsolar-01.jpg" },
+          { kind:"img", src:"assets/img/pixsolar/pixsolar-02.jpg" },
+          { kind:"img", src:"assets/img/pixsolar/pixsolar-03.png" },
+          { kind:"img", src:"assets/img/pixsolar/pixsolar-04.png" },
+          { kind:"img", src:"assets/img/pixsolar/pixsolar-05.jpg" },
+          { kind:"img", src:"assets/img/pixsolar/pixsolar-06.jpg" },
         ],
       },
       {
@@ -1099,7 +1067,7 @@
         title: "Unemix",
         subtitle: "6 cards + 1 motion (1080x1920) • desejo imediato + feed clean",
         tag: "Social Media",
-        cover: "./assets/img/covers/cover-unemix.jpg",
+        cover: "assets/img/covers/cover-unemix.jpg",
         type: "Social / Food",
         deliveries: "6 cards + 1 motion",
         tools: "Photoshop • After Effects",
@@ -1115,13 +1083,13 @@
         ],
         skills: ["Direção de arte", "Composição", "Motion curto", "Sistema visual", "Social premium"],
         items: [
-          { kind:"img", src:"./assets/img/unemix/unemix-01.png" },
-          { kind:"img", src:"./assets/img/unemix/unemix-02.png" },
-          { kind:"img", src:"./assets/img/unemix/unemix-03.png" },
-          { kind:"img", src:"./assets/img/unemix/unemix-04.jpg" },
-          { kind:"img", src:"./assets/img/unemix/unemix-05.jpg" },
-          { kind:"img", src:"./assets/img/unemix/unemix-06.jpg" },
-          { kind:"video", src:"./assets/video/unemix/unemix-motion-01.mp4" },
+          { kind:"img", src:"assets/img/unemix/unemix-01.png" },
+          { kind:"img", src:"assets/img/unemix/unemix-02.png" },
+          { kind:"img", src:"assets/img/unemix/unemix-03.png" },
+          { kind:"img", src:"assets/img/unemix/unemix-04.jpg" },
+          { kind:"img", src:"assets/img/unemix/unemix-05.jpg" },
+          { kind:"img", src:"assets/img/unemix/unemix-06.jpg" },
+          { kind:"video", src:"assets/video/unemix/unemix-motion-01.mp4" },
         ],
       },
       {
@@ -1129,7 +1097,7 @@
         title: "EDOC",
         subtitle: "4 cards • comunicação limpa, institucional e objetiva",
         tag: "Social Media",
-        cover: "./assets/img/covers/cover-edoc.jpg",
+        cover: "assets/img/covers/cover-edoc.jpg",
         type: "Social / Institucional",
         deliveries: "4 cards",
         tools: "Photoshop",
@@ -1145,10 +1113,10 @@
         ],
         skills: ["Tipografia", "Grid", "Design institucional", "Clareza", "Padronização"],
         items: [
-          { kind:"img", src:"./assets/img/edoc/edoc-01.png" },
-          { kind:"img", src:"./assets/img/edoc/edoc-02.jpg" },
-          { kind:"img", src:"./assets/img/edoc/edoc-03.png" },
-          { kind:"img", src:"./assets/img/edoc/edoc-04.jpg" },
+          { kind:"img", src:"assets/img/edoc/edoc-01.png" },
+          { kind:"img", src:"assets/img/edoc/edoc-02.jpg" },
+          { kind:"img", src:"assets/img/edoc/edoc-03.png" },
+          { kind:"img", src:"assets/img/edoc/edoc-04.jpg" },
         ],
       },
       {
@@ -1156,7 +1124,7 @@
         title: "EFF Dental (em curadoria)",
         subtitle: "Stands • painéis • eventos • temporada 2",
         tag: "Stands & Eventos",
-        cover: "./assets/img/covers/cover-effdental.jpg",
+        cover: "assets/img/covers/cover-effdental.jpg",
         type: "Eventos / Print / Digital Signage",
         deliveries: "Stands + painéis + KV",
         tools: "Photoshop • Illustrator • (AE/3D se entrar)",
@@ -1172,10 +1140,10 @@
         ],
         skills: ["Direção de arte", "Print", "Eventos", "Sinalização", "Desdobramentos"],
         items: [
-          { kind:"img", src:"./assets/img/effdental/effdental-stand-01.jpg" },
-          { kind:"img", src:"./assets/img/effdental/effdental-stand-02.jpg" },
-          { kind:"img", src:"./assets/img/effdental/effdental-tv-01.jpg" },
-          { kind:"img", src:"./assets/img/effdental/effdental-tv-02.jpg" },
+          { kind:"img", src:"assets/img/effdental/effdental-stand-01.jpg" },
+          { kind:"img", src:"assets/img/effdental/effdental-stand-02.jpg" },
+          { kind:"img", src:"assets/img/effdental/effdental-tv-01.jpg" },
+          { kind:"img", src:"assets/img/effdental/effdental-tv-02.jpg" },
         ],
       },
     ];
@@ -1284,6 +1252,7 @@
       mRole.textContent = p.role;
       mDesc.textContent = p.desc;
 
+      // KPIs
       mKpis.innerHTML = "";
       p.kpis.forEach(k => {
         const chip = document.createElement("div");
@@ -1292,6 +1261,7 @@
         mKpis.appendChild(chip);
       });
 
+      // Skills
       mSkills.innerHTML = "";
       p.skills.forEach(s => {
         const c = document.createElement("span");
@@ -1300,6 +1270,7 @@
         mSkills.appendChild(c);
       });
 
+      // Thumbs + main
       viewerThumbs.innerHTML = "";
       const items = p.items || [];
       if(items.length){
@@ -1361,7 +1332,7 @@
     });
 
     // Init
-    $("#year").textContent = new Date().getFullYear();
+    document.querySelector("#year").textContent = new Date().getFullYear();
     mountRails();
   </script>
 </body>
