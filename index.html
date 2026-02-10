@@ -515,7 +515,7 @@
     .viewer-main img, .viewer-main video{
       width:100%;
       height:100%;
-      object-fit:cover;
+      object-fit:cover; /* desktop mantém cover */
       display:block;
     }
     .viewer-thumbs{
@@ -637,7 +637,7 @@
       flex-wrap:wrap;
     }
 
-    /* Responsive */
+    /* Responsive base */
     @media (max-width: 980px){
       .hero{grid-template-columns: 1fr; }
       .modal-body{grid-template-columns: 1fr; }
@@ -664,7 +664,7 @@
     }
 
     /* =========================================================
-       PATCH 02 — SOBRE: glass buttons das ferramentas
+       PATCH 02 — SOBRE: glass buttons com ícone (logo/monograma)
     ========================================================= */
     .tool-glass{
       display:flex;
@@ -673,36 +673,68 @@
       margin-top: 12px;
     }
     .tool-btn{
+      width:46px;
+      height:46px;
       display:inline-flex;
       align-items:center;
-      gap:10px;
-      padding:10px 12px;
-      border-radius: 14px;
+      justify-content:center;
+      border-radius: 16px;
       border:1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.05);
-      font-size: 12.5px;
-      font-weight: 700;
-      letter-spacing: .2px;
+      backdrop-filter: blur(10px);
       transition: transform .18s ease, border-color .18s ease, background .18s ease;
       user-select:none;
       cursor: default;
+      position:relative;
     }
     .tool-btn:hover{
       transform: translateY(-1px);
       background: rgba(255,255,255,.08);
-      border-color: rgba(255,255,255,.20);
+      border-color: rgba(46,242,255,.25);
     }
-    .tool-dot{
-      width:10px;
-      height:10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.75);
-      box-shadow: 0 0 0 5px rgba(255,255,255,.08);
+    .tool-icon{
+      width:30px;
+      height:30px;
+      border-radius: 10px;
+      display:grid;
+      place-items:center;
+      font-family: Orbitron, Inter, sans-serif;
+      font-weight: 800;
+      letter-spacing:.2px;
+      font-size: 12px;
+      color: rgba(255,255,255,.95);
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.28);
+      box-shadow: 0 12px 30px rgba(0,0,0,.28);
     }
-    .tool-btn.ps .tool-dot{ background: rgba(49,168,255,.95); }
-    .tool-btn.ai .tool-dot{ background: rgba(255,159,0,.95); }
-    .tool-btn.ae .tool-dot{ background: rgba(153,102,255,.95); }
-    .tool-btn.pr .tool-dot{ background: rgba(153,153,255,.95); }
+    .tool-icon.ps{ background: rgba(49,168,255,.22); border-color: rgba(49,168,255,.35); }
+    .tool-icon.ai{ background: rgba(255,159,0,.22); border-color: rgba(255,159,0,.35); }
+    .tool-icon.ae{ background: rgba(153,102,255,.22); border-color: rgba(153,102,255,.35); }
+    .tool-icon.pr{ background: rgba(153,153,255,.22); border-color: rgba(153,153,255,.35); }
+    .sr-only{
+      position:absolute;
+      width:1px;height:1px;
+      padding:0;margin:-1px;
+      overflow:hidden;
+      clip:rect(0,0,0,0);
+      white-space:nowrap;
+      border:0;
+    }
+
+    /* =========================================================
+       PATCH 03 — MODAL no mobile: NÃO cortar imagens (contain)
+    ========================================================= */
+    @media (max-width: 768px){
+      .viewer-main{
+        aspect-ratio: auto;
+        height: min(62vh, 520px);
+      }
+      .viewer-main img,
+      .viewer-main video{
+        object-fit: contain;
+        background: rgba(0,0,0,.22);
+      }
+    }
   </style>
 </head>
 
@@ -761,7 +793,7 @@
         </div>
       </div>
 
-      <!-- SOBRE (novo, dinâmico) -->
+      <!-- SOBRE -->
       <aside class="profile-card" id="sobre">
         <div class="profile-top">
           <div>
@@ -775,15 +807,30 @@
           </div>
         </div>
 
-        <!-- Ferramentas em glass buttons -->
+        <!-- Ferramentas em glass buttons com ícone -->
         <div class="tool-glass" aria-label="Ferramentas principais">
-          <span class="tool-btn ps"><span class="tool-dot"></span> Photoshop</span>
-          <span class="tool-btn ai"><span class="tool-dot"></span> Illustrator</span>
-          <span class="tool-btn ae"><span class="tool-dot"></span> After Effects</span>
-          <span class="tool-btn pr"><span class="tool-dot"></span> Premiere</span>
+          <span class="tool-btn" title="Photoshop">
+            <span class="tool-icon ps">Ps</span>
+            <span class="sr-only">Photoshop</span>
+          </span>
+
+          <span class="tool-btn" title="Illustrator">
+            <span class="tool-icon ai">Ai</span>
+            <span class="sr-only">Illustrator</span>
+          </span>
+
+          <span class="tool-btn" title="After Effects">
+            <span class="tool-icon ae">Ae</span>
+            <span class="sr-only">After Effects</span>
+          </span>
+
+          <span class="tool-btn" title="Premiere">
+            <span class="tool-icon pr">Pr</span>
+            <span class="sr-only">Premiere</span>
+          </span>
         </div>
 
-        <!-- Skills gerais (mantém chips) -->
+        <!-- Skills gerais -->
         <div class="skills" aria-label="Habilidades" style="margin-top:12px">
           <span class="chip cyan">Social estratégico</span>
           <span class="chip purple">Campanhas</span>
@@ -915,7 +962,7 @@
           </div>
 
           <p class="desc" id="m-desc">
-            Aqui entram contexto, objetivo e sua lógica de performance. (Já deixei pronto pra ficar “pleno” de verdade.)
+            Aqui entram contexto, objetivo e sua lógica de performance.
           </p>
 
           <div class="kpi" id="m-kpis" aria-label="Indicadores e heurísticas de performance"></div>
@@ -935,7 +982,7 @@
 
   <script>
     // =========================================
-    // DADOS DOS PROJETOS (mantidos com seus paths)
+    // DADOS DOS PROJETOS (paths com ./ pra GitHub Pages)
     // =========================================
     const projects = [
       {
@@ -943,7 +990,7 @@
         title: "Esportivo",
         subtitle: "Cards estáticos + motion (1920x1080) • foco em impacto e leitura rápida",
         tag: "Social Media",
-        cover: "assets/img/covers/cover-esportivo.jpg",
+        cover: "./assets/img/covers/cover-esportivo.jpg",
         type: "Social / Sports",
         deliveries: "6 cards + 1 motion",
         tools: "Photoshop • After Effects",
@@ -959,13 +1006,13 @@
         ],
         skills: ["Tipografia", "Grid", "Direção visual", "Ritmo de campanha", "Design para performance"],
         items: [
-          { kind:"img", src:"assets/img/esportivo/esportivo-01.jpg" },
-          { kind:"img", src:"assets/img/esportivo/esportivo-02.jpg" },
-          { kind:"img", src:"assets/img/esportivo/esportivo-03.jpg" },
-          { kind:"img", src:"assets/img/esportivo/esportivo-04.jpg" },
-          { kind:"img", src:"assets/img/esportivo/esportivo-05.jpg" },
-          { kind:"img", src:"assets/img/esportivo/esportivo-06.jpg" },
-          { kind:"video", src:"assets/video/esportivo/esportivo-motion-01.mp4" },
+          { kind:"img", src:"./assets/img/esportivo/esportivo-01.jpg" },
+          { kind:"img", src:"./assets/img/esportivo/esportivo-02.jpg" },
+          { kind:"img", src:"./assets/img/esportivo/esportivo-03.jpg" },
+          { kind:"img", src:"./assets/img/esportivo/esportivo-04.jpg" },
+          { kind:"img", src:"./assets/img/esportivo/esportivo-05.jpg" },
+          { kind:"img", src:"./assets/img/esportivo/esportivo-06.jpg" },
+          { kind:"video", src:"./assets/video/esportivo/esportivo-motion-01.mp4" },
         ],
       },
       {
@@ -973,7 +1020,7 @@
         title: "Pix Solar",
         subtitle: "Carrossel/peças • visual direto pra conversão",
         tag: "Social Media",
-        cover: "assets/img/covers/cover-pixsolar.jpg",
+        cover: "./assets/img/covers/cover-pixsolar.jpg",
         type: "Social / Performance",
         deliveries: "6 cards",
         tools: "Photoshop",
@@ -989,12 +1036,12 @@
         ],
         skills: ["Design orientado a copy", "Composição", "Consistência de marca", "Hierarquia", "Design para social"],
         items: [
-          { kind:"img", src:"assets/img/pixsolar/pixsolar-01.jpg" },
-          { kind:"img", src:"assets/img/pixsolar/pixsolar-02.jpg" },
-          { kind:"img", src:"assets/img/pixsolar/pixsolar-03.png" },
-          { kind:"img", src:"assets/img/pixsolar/pixsolar-04.png" },
-          { kind:"img", src:"assets/img/pixsolar/pixsolar-05.jpg" },
-          { kind:"img", src:"assets/img/pixsolar/pixsolar-06.jpg" },
+          { kind:"img", src:"./assets/img/pixsolar/pixsolar-01.jpg" },
+          { kind:"img", src:"./assets/img/pixsolar/pixsolar-02.jpg" },
+          { kind:"img", src:"./assets/img/pixsolar/pixsolar-03.png" },
+          { kind:"img", src:"./assets/img/pixsolar/pixsolar-04.png" },
+          { kind:"img", src:"./assets/img/pixsolar/pixsolar-05.jpg" },
+          { kind:"img", src:"./assets/img/pixsolar/pixsolar-06.jpg" },
         ],
       },
       {
@@ -1002,7 +1049,7 @@
         title: "Unemix",
         subtitle: "6 cards + 1 motion (1080x1920) • desejo imediato + feed clean",
         tag: "Social Media",
-        cover: "assets/img/covers/cover-unemix.jpg",
+        cover: "./assets/img/covers/cover-unemix.jpg",
         type: "Social / Food",
         deliveries: "6 cards + 1 motion",
         tools: "Photoshop • After Effects",
@@ -1018,13 +1065,13 @@
         ],
         skills: ["Direção de arte", "Composição", "Motion curto", "Sistema visual", "Social premium"],
         items: [
-          { kind:"img", src:"assets/img/unemix/unemix-01.png" },
-          { kind:"img", src:"assets/img/unemix/unemix-02.png" },
-          { kind:"img", src:"assets/img/unemix/unemix-03.png" },
-          { kind:"img", src:"assets/img/unemix/unemix-04.jpg" },
-          { kind:"img", src:"assets/img/unemix/unemix-05.jpg" },
-          { kind:"img", src:"assets/img/unemix/unemix-06.jpg" },
-          { kind:"video", src:"assets/video/unemix/unemix-motion-01.mp4" },
+          { kind:"img", src:"./assets/img/unemix/unemix-01.png" },
+          { kind:"img", src:"./assets/img/unemix/unemix-02.png" },
+          { kind:"img", src:"./assets/img/unemix/unemix-03.png" },
+          { kind:"img", src:"./assets/img/unemix/unemix-04.jpg" },
+          { kind:"img", src:"./assets/img/unemix/unemix-05.jpg" },
+          { kind:"img", src:"./assets/img/unemix/unemix-06.jpg" },
+          { kind:"video", src:"./assets/video/unemix/unemix-motion-01.mp4" },
         ],
       },
       {
@@ -1032,7 +1079,7 @@
         title: "EDOC",
         subtitle: "4 cards • comunicação limpa, institucional e objetiva",
         tag: "Social Media",
-        cover: "assets/img/covers/cover-edoc.jpg",
+        cover: "./assets/img/covers/cover-edoc.jpg",
         type: "Social / Institucional",
         deliveries: "4 cards",
         tools: "Photoshop",
@@ -1048,20 +1095,18 @@
         ],
         skills: ["Tipografia", "Grid", "Design institucional", "Clareza", "Padronização"],
         items: [
-          { kind:"img", src:"assets/img/edoc/edoc-01.png" },
-          { kind:"img", src:"assets/img/edoc/edoc-02.jpg" },
-          { kind:"img", src:"assets/img/edoc/edoc-03.png" },
-          { kind:"img", src:"assets/img/edoc/edoc-04.jpg" },
+          { kind:"img", src:"./assets/img/edoc/edoc-01.png" },
+          { kind:"img", src:"./assets/img/edoc/edoc-02.jpg" },
+          { kind:"img", src:"./assets/img/edoc/edoc-03.png" },
+          { kind:"img", src:"./assets/img/edoc/edoc-04.jpg" },
         ],
       },
-
-      // EFF Dental (placeholder “cereja do bolo” – já pronto pra receber)
       {
         id: "effdental",
         title: "EFF Dental (em curadoria)",
         subtitle: "Stands • painéis • eventos • temporada 2",
         tag: "Stands & Eventos",
-        cover: "assets/img/covers/cover-effdental.jpg",
+        cover: "./assets/img/covers/cover-effdental.jpg",
         type: "Eventos / Print / Digital Signage",
         deliveries: "Stands + painéis + KV",
         tools: "Photoshop • Illustrator • (AE/3D se entrar)",
@@ -1077,17 +1122,17 @@
         ],
         skills: ["Direção de arte", "Print", "Eventos", "Sinalização", "Desdobramentos"],
         items: [
-          { kind:"img", src:"assets/img/effdental/effdental-stand-01.jpg" },
-          { kind:"img", src:"assets/img/effdental/effdental-stand-02.jpg" },
-          { kind:"img", src:"assets/img/effdental/effdental-tv-01.jpg" },
-          { kind:"img", src:"assets/img/effdental/effdental-tv-02.jpg" },
+          { kind:"img", src:"./assets/img/effdental/effdental-stand-01.jpg" },
+          { kind:"img", src:"./assets/img/effdental/effdental-stand-02.jpg" },
+          { kind:"img", src:"./assets/img/effdental/effdental-tv-01.jpg" },
+          { kind:"img", src:"./assets/img/effdental/effdental-tv-02.jpg" },
         ],
       },
     ];
 
     // Separação por esteiras
     const socialIds = ["esportivo","pixsolar","unemix","edoc","effdental"];
-    const motionIds = ["esportivo","unemix"]; // projetos com vídeo
+    const motionIds = ["esportivo","unemix"];
     const standsIds = ["effdental"];
 
     const $ = (sel) => document.querySelector(sel);
@@ -1152,7 +1197,6 @@
     const viewerMain = $("#viewer-main");
     const viewerThumbs = $("#viewer-thumbs");
 
-    let activeProject = null;
     let lastFocused = null;
 
     function renderMain(item){
@@ -1180,7 +1224,6 @@
       const p = projects.find(x => x.id === projectId);
       if(!p) return;
 
-      activeProject = p;
       lastFocused = document.activeElement;
 
       mTitle.textContent = p.title;
@@ -1191,7 +1234,6 @@
       mRole.textContent = p.role;
       mDesc.textContent = p.desc;
 
-      // KPIs/Heurísticas
       mKpis.innerHTML = "";
       p.kpis.forEach(k => {
         const chip = document.createElement("div");
@@ -1200,7 +1242,6 @@
         mKpis.appendChild(chip);
       });
 
-      // Skills
       mSkills.innerHTML = "";
       p.skills.forEach(s => {
         const c = document.createElement("span");
@@ -1209,7 +1250,6 @@
         mSkills.appendChild(c);
       });
 
-      // Thumbs + main
       viewerThumbs.innerHTML = "";
       const items = p.items || [];
       if(items.length){
@@ -1270,7 +1310,6 @@
       if(e.key === "Escape") closeModal();
     });
 
-    // Init
     $("#year").textContent = new Date().getFullYear();
     mountRails();
   </script>
