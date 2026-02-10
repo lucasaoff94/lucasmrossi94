@@ -128,13 +128,14 @@
       background: rgba(138,92,255,.14);
     }
 
-    /* Hero */
+    /* Layout */
     .wrap{
       max-width: var(--max);
       margin: 0 auto;
       padding: 0 20px;
     }
 
+    /* Hero */
     .hero{
       padding: 56px 0 30px;
       display:grid;
@@ -235,6 +236,7 @@
       line-height:1.35;
     }
 
+    /* About card (imagem + overlay) */
     .profile-card{
       border-radius: var(--radius2);
       background: linear-gradient(180deg, rgba(17,26,46,.75), rgba(14,20,36,.65));
@@ -242,19 +244,49 @@
       box-shadow: var(--shadow);
       overflow:hidden;
       position:relative;
-      padding: 18px;
+      padding: 0; /* agora a imagem controla o padding */
       display:flex;
       flex-direction:column;
       justify-content:space-between;
-      gap:14px;
+      gap:0;
       min-height: 300px;
     }
-    .profile-top{
+
+    .about-hero{
+      position:relative;
+      width:100%;
+      height:100%;
+      min-height: 300px;
+      overflow:hidden;
       display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:10px;
     }
+
+    .about-hero img{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      transform: scale(1.02);
+      filter: saturate(1.05) contrast(1.05);
+      opacity:.95;
+    }
+
+    .about-overlay{
+      position:relative;
+      z-index:2;
+      width:100%;
+      padding: 18px;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+      gap:10px;
+      background:
+        linear-gradient(0deg, rgba(7,10,18,.90), rgba(7,10,18,.35) 55%, rgba(7,10,18,.12)),
+        radial-gradient(600px 320px at 20% 20%, rgba(46,242,255,.10), transparent 60%),
+        radial-gradient(600px 320px at 90% 30%, rgba(138,92,255,.10), transparent 60%);
+    }
+
     .badge{
       font-size:12px;
       color: var(--text);
@@ -266,6 +298,7 @@
       gap:8px;
       align-items:center;
       white-space:nowrap;
+      width: fit-content;
     }
     .badge i{
       width:8px; height:8px; border-radius:999px;
@@ -273,11 +306,29 @@
       box-shadow: 0 0 18px rgba(138,92,255,.65);
       display:inline-block;
     }
-    .mini{
-      font-size:12.5px;
+
+    .about-title{
+      margin: 2px 0 0;
+      font-family: Orbitron, Inter, sans-serif;
+      letter-spacing:.4px;
+      font-size: 18px;
+      line-height:1.15;
+    }
+
+    .about-sub{
+      margin:0;
       color: var(--muted);
+      font-size: 12.7px;
       line-height:1.45;
-      margin: 10px 0 0;
+      max-width: 52ch;
+    }
+
+    .about-bullets{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      color: rgba(234,240,255,.88);
+      font-size: 12px;
     }
 
     .skills{
@@ -296,6 +347,62 @@
     }
     .chip.cyan{border-color: rgba(46,242,255,.22); background: rgba(46,242,255,.05)}
     .chip.purple{border-color: rgba(138,92,255,.22); background: rgba(138,92,255,.06)}
+
+    /* Tool icons (glass buttons) */
+    .tool-glass{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top: 12px;
+    }
+    .tool-btn{
+      width:46px;
+      height:46px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      backdrop-filter: blur(10px);
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+      user-select:none;
+      cursor: default;
+      position:relative;
+    }
+    .tool-btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.08);
+      border-color: rgba(46,242,255,.25);
+    }
+    .tool-icon{
+      width:30px;
+      height:30px;
+      border-radius: 10px;
+      display:grid;
+      place-items:center;
+      font-family: Orbitron, Inter, sans-serif;
+      font-weight: 800;
+      letter-spacing:.2px;
+      font-size: 12px;
+      color: rgba(255,255,255,.95);
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.28);
+      box-shadow: 0 12px 30px rgba(0,0,0,.28);
+    }
+    .tool-icon.ps{ background: rgba(49,168,255,.22); border-color: rgba(49,168,255,.35); }
+    .tool-icon.ai{ background: rgba(255,159,0,.22); border-color: rgba(255,159,0,.35); }
+    .tool-icon.ae{ background: rgba(153,102,255,.22); border-color: rgba(153,102,255,.35); }
+    .tool-icon.pr{ background: rgba(153,153,255,.22); border-color: rgba(153,153,255,.35); }
+    .sr-only{
+      position:absolute;
+      width:1px;height:1px;
+      padding:0;margin:-1px;
+      overflow:hidden;
+      clip:rect(0,0,0,0);
+      white-space:nowrap;
+      border:0;
+    }
 
     /* Rows (Netflix-style) */
     .section{
@@ -641,7 +748,7 @@
     @media (max-width: 980px){
       .hero{grid-template-columns: 1fr; }
       .modal-body{grid-template-columns: 1fr; }
-      .profile-card{min-height: unset}
+      .about-hero{min-height: 260px;}
     }
 
     /* =========================================================
@@ -661,64 +768,6 @@
       .poster::after{
         background: linear-gradient(0deg, rgba(7,10,18,.78), rgba(7,10,18,.12));
       }
-    }
-
-    /* =========================================================
-       PATCH 02 — SOBRE: glass buttons com ícone (logo/monograma)
-    ========================================================= */
-    .tool-glass{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top: 12px;
-    }
-    .tool-btn{
-      width:46px;
-      height:46px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      backdrop-filter: blur(10px);
-      transition: transform .18s ease, border-color .18s ease, background .18s ease;
-      user-select:none;
-      cursor: default;
-      position:relative;
-    }
-    .tool-btn:hover{
-      transform: translateY(-1px);
-      background: rgba(255,255,255,.08);
-      border-color: rgba(46,242,255,.25);
-    }
-    .tool-icon{
-      width:30px;
-      height:30px;
-      border-radius: 10px;
-      display:grid;
-      place-items:center;
-      font-family: Orbitron, Inter, sans-serif;
-      font-weight: 800;
-      letter-spacing:.2px;
-      font-size: 12px;
-      color: rgba(255,255,255,.95);
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.28);
-      box-shadow: 0 12px 30px rgba(0,0,0,.28);
-    }
-    .tool-icon.ps{ background: rgba(49,168,255,.22); border-color: rgba(49,168,255,.35); }
-    .tool-icon.ai{ background: rgba(255,159,0,.22); border-color: rgba(255,159,0,.35); }
-    .tool-icon.ae{ background: rgba(153,102,255,.22); border-color: rgba(153,102,255,.35); }
-    .tool-icon.pr{ background: rgba(153,153,255,.22); border-color: rgba(153,153,255,.35); }
-    .sr-only{
-      position:absolute;
-      width:1px;height:1px;
-      padding:0;margin:-1px;
-      overflow:hidden;
-      clip:rect(0,0,0,0);
-      white-space:nowrap;
-      border:0;
     }
 
     /* =========================================================
@@ -768,7 +817,7 @@
         </h2>
         <p class="subhead">
           Social media, campanhas e motion com direção visual consistente. Eu penso em estética + legibilidade + hierarquia + intenção
-          (o famoso “design com propósito”), pra aproximar o visual de resultado.
+          pra aproximar o visual de resultado.
         </p>
 
         <div class="hero-actions">
@@ -793,58 +842,59 @@
         </div>
       </div>
 
-      <!-- SOBRE -->
-      <aside class="profile-card" id="sobre">
-        <div class="profile-top">
-          <div>
+      <!-- SOBRE (imagem + infos reduzidas, sem perder o essencial) -->
+      <aside class="profile-card" id="sobre" aria-label="Sobre mim">
+        <div class="about-hero">
+          <img src="./assets/img/about/about-hero.jpg" alt="Key visual do perfil de Lucas Rossi" loading="lazy"
+               onerror="this.style.display='none'">
+
+          <div class="about-overlay">
             <div class="badge"><i></i> Designer Pleno • visão de marketing</div>
 
-            <p class="mini">
-              Eu organizo a informação antes de “embelezar”.
-              Primeiro: hierarquia e clareza. Depois: impacto.
-              Isso muda o resultado final — especialmente em B2B.
-            </p>
+            <div>
+              <h3 class="about-title">Eu organizo a informação antes de “embelezar”.</h3>
+              <p class="about-sub">
+                Primeiro: hierarquia e clareza. Depois: impacto. Isso acelera entendimento e melhora performance (especialmente em B2B).
+              </p>
+
+              <div class="about-bullets" aria-label="Pontos fortes">
+                <span>• Social estratégico</span>
+                <span>• Motion curto (Reels)</span>
+                <span>• Consistência de marca</span>
+                <span>• Copy-aware design</span>
+              </div>
+            </div>
+
+            <div class="tool-glass" aria-label="Ferramentas principais">
+              <span class="tool-btn" title="Photoshop">
+                <span class="tool-icon ps">Ps</span>
+                <span class="sr-only">Photoshop</span>
+              </span>
+              <span class="tool-btn" title="Illustrator">
+                <span class="tool-icon ai">Ai</span>
+                <span class="sr-only">Illustrator</span>
+              </span>
+              <span class="tool-btn" title="After Effects">
+                <span class="tool-icon ae">Ae</span>
+                <span class="sr-only">After Effects</span>
+              </span>
+              <span class="tool-btn" title="Premiere">
+                <span class="tool-icon pr">Pr</span>
+                <span class="sr-only">Premiere</span>
+              </span>
+            </div>
+
+            <!-- Mantém infos do sobre, só que em chips (resumo) -->
+            <div class="skills" aria-label="Habilidades principais" style="margin-top:2px">
+              <span class="chip cyan">Layout / Grid</span>
+              <span class="chip purple">Tipografia</span>
+              <span class="chip cyan">Direção de arte</span>
+              <span class="chip purple">Campanhas</span>
+              <span class="chip">Marketing Digital</span>
+              <span class="chip">Design p/ social</span>
+            </div>
           </div>
         </div>
-
-        <!-- Ferramentas em glass buttons com ícone -->
-        <div class="tool-glass" aria-label="Ferramentas principais">
-          <span class="tool-btn" title="Photoshop">
-            <span class="tool-icon ps">Ps</span>
-            <span class="sr-only">Photoshop</span>
-          </span>
-
-          <span class="tool-btn" title="Illustrator">
-            <span class="tool-icon ai">Ai</span>
-            <span class="sr-only">Illustrator</span>
-          </span>
-
-          <span class="tool-btn" title="After Effects">
-            <span class="tool-icon ae">Ae</span>
-            <span class="sr-only">After Effects</span>
-          </span>
-
-          <span class="tool-btn" title="Premiere">
-            <span class="tool-icon pr">Pr</span>
-            <span class="sr-only">Premiere</span>
-          </span>
-        </div>
-
-        <!-- Skills gerais -->
-        <div class="skills" aria-label="Habilidades" style="margin-top:12px">
-          <span class="chip cyan">Social estratégico</span>
-          <span class="chip purple">Campanhas</span>
-          <span class="chip cyan">Motion (Reels)</span>
-          <span class="chip purple">Marketing Digital</span>
-          <span class="chip">Brand consistency</span>
-          <span class="chip">Layout / Grid</span>
-          <span class="chip">Copy-aware Design</span>
-        </div>
-
-        <p class="mini" style="margin-top:12px">
-          <b style="color:var(--text)">Foco de entrega:</b> peças com leitura rápida, boa hierarquia e “cara de marca”.
-          <br/>Isso serve tanto pra vaga quanto pra freela.
-        </p>
       </aside>
     </section>
 
@@ -1310,6 +1360,7 @@
       if(e.key === "Escape") closeModal();
     });
 
+    // Init
     $("#year").textContent = new Date().getFullYear();
     mountRails();
   </script>
