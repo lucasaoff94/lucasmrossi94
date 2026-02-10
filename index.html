@@ -149,19 +149,34 @@
       position:relative;
       min-height: 420px;
       background: rgba(255,255,255,.02);
+      isolation: isolate; /* garante empilhamento perfeito */
     }
 
+    /* Fundo blur (preenche 100% sem cortar o conteúdo principal) */
+    .hero-banner::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: url("assets/img/about/about-hero.jpg") center/cover no-repeat;
+      filter: blur(26px) saturate(1.1);
+      transform: scale(1.08);
+      opacity:.35;
+      z-index:0;
+    }
+
+    /* Imagem principal SEM CORTE */
     .hero-banner img.hero-bg{
       position:absolute;
       inset:0;
       width:100%;
       height:100%;
-      object-fit: cover;
-      opacity:.95;
-      transform: scale(1.02);
-      filter: saturate(1.05) contrast(1.05);
+      object-fit: contain;  /* <- não corta */
+      z-index:1;
+      opacity:.98;
+      background: rgba(0,0,0,.18);
     }
 
+    /* Overlay de leitura */
     .hero-banner::after{
       content:"";
       position:absolute;
@@ -171,11 +186,12 @@
         radial-gradient(700px 360px at 20% 20%, rgba(46,242,255,.12), transparent 60%),
         radial-gradient(700px 360px at 80% 25%, rgba(138,92,255,.12), transparent 60%);
       pointer-events:none;
+      z-index:2;
     }
 
     .hero-content{
       position:relative;
-      z-index:2;
+      z-index:3;
       padding: 26px;
       display:grid;
       grid-template-columns: 1.25fr .75fr;
@@ -203,6 +219,7 @@
       font-size: clamp(26px, 3.4vw, 42px);
       line-height:1.05;
       letter-spacing:.4px;
+      text-shadow: 0 12px 40px rgba(0,0,0,.45);
     }
     .headline .grad{
       background: linear-gradient(90deg, var(--cyan), var(--purple));
@@ -217,6 +234,7 @@
       font-size: 15px;
       line-height:1.55;
       max-width: 62ch;
+      text-shadow: 0 10px 30px rgba(0,0,0,.45);
     }
 
     .hero-actions{
@@ -239,6 +257,7 @@
       background: rgba(255,255,255,.03);
       padding: 12px 12px;
       min-height: 72px;
+      backdrop-filter: blur(8px);
     }
     .stat b{
       display:block;
@@ -276,6 +295,7 @@
       align-items:center;
       white-space:nowrap;
       width: fit-content;
+      backdrop-filter: blur(8px);
     }
     .badge i{
       width:8px; height:8px; border-radius:999px;
@@ -290,6 +310,7 @@
       line-height:1.45;
       max-width: 46ch;
       margin:0;
+      text-shadow: 0 10px 24px rgba(0,0,0,.45);
     }
 
     .about-bullets{
@@ -298,6 +319,7 @@
       gap:10px;
       color: rgba(234,240,255,.88);
       font-size: 12px;
+      text-shadow: 0 10px 24px rgba(0,0,0,.45);
     }
 
     /* Tool icons (glass buttons) */
@@ -369,6 +391,7 @@
       border-radius: 999px;
       border:1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.03);
+      backdrop-filter: blur(8px);
     }
     .chip.cyan{border-color: rgba(46,242,255,.22); background: rgba(46,242,255,.05)}
     .chip.purple{border-color: rgba(138,92,255,.22); background: rgba(138,92,255,.06)}
@@ -734,10 +757,7 @@
       }
     }
 
-    /* =========================================================
-       PATCH 01 — MOBILE: capas não cortarem (cards da esteira)
-       Mantém desktop cover; no mobile vira contain.
-    ========================================================= */
+    /* MOBILE: capas não cortarem (cards da esteira) */
     @media (max-width: 768px){
       .poster{
         aspect-ratio: 16/10;
@@ -753,9 +773,7 @@
       }
     }
 
-    /* =========================================================
-       PATCH 03 — MODAL no mobile: NÃO cortar imagens (contain)
-    ========================================================= */
+    /* MODAL no mobile: NÃO cortar imagens (contain) */
     @media (max-width: 768px){
       .viewer-main{
         aspect-ratio: auto;
@@ -790,7 +808,7 @@
   </header>
 
   <main class="wrap">
-    <!-- HERO (banner único com imagem) -->
+    <!-- HERO (banner único com imagem inteira + fundo blur) -->
     <section class="hero" id="topo">
       <div class="hero-banner">
         <img class="hero-bg" src="assets/img/about/about-hero.jpg" alt="Key visual do perfil de Lucas Rossi" loading="lazy">
@@ -920,14 +938,16 @@
         </div>
       </div>
 
-      <div class="hero-card" style="padding:18px; border-radius:22px">
-        <p class="subhead" style="margin:0">
-          <b style="color:var(--text)">Sugestão:</b> coloque aqui seus links (WhatsApp, e-mail, LinkedIn) e um “disponível para freelas”.
-        </p>
-        <div class="hero-actions" style="margin-top:14px">
-          <a class="pill primary" href="mailto:seuemail@exemplo.com">E-mail</a>
-          <a class="pill" href="#" onclick="alert('Troque pelo seu WhatsApp (wa.me).'); return false;">WhatsApp</a>
-          <a class="pill" href="#" onclick="alert('Troque pelo seu LinkedIn.'); return false;">LinkedIn</a>
+      <div class="hero-banner" style="min-height:auto">
+        <div class="hero-content" style="grid-template-columns: 1fr; padding:18px">
+          <p class="subhead" style="margin:0">
+            <b style="color:var(--text)">Sugestão:</b> coloque aqui seus links (WhatsApp, e-mail, LinkedIn) e um “disponível para freelas”.
+          </p>
+          <div class="hero-actions" style="margin-top:14px">
+            <a class="pill primary" href="mailto:seuemail@exemplo.com">E-mail</a>
+            <a class="pill" href="#" onclick="alert('Troque pelo seu WhatsApp (wa.me).'); return false;">WhatsApp</a>
+            <a class="pill" href="#" onclick="alert('Troque pelo seu LinkedIn.'); return false;">LinkedIn</a>
+          </div>
         </div>
       </div>
     </section>
@@ -1148,7 +1168,6 @@
       },
     ];
 
-    // Separação por esteiras
     const socialIds = ["esportivo","pixsolar","unemix","edoc","effdental"];
     const motionIds = ["esportivo","unemix"];
     const standsIds = ["effdental"];
@@ -1197,7 +1216,6 @@
       standsIds.forEach(id => railStands.appendChild(buildCard(projects.find(p=>p.id===id))));
     }
 
-    // Modal
     const modal = $("#modal");
     const backdrop = $("#modal-backdrop");
     const closeBtn = $("#modal-close");
@@ -1252,7 +1270,6 @@
       mRole.textContent = p.role;
       mDesc.textContent = p.desc;
 
-      // KPIs
       mKpis.innerHTML = "";
       p.kpis.forEach(k => {
         const chip = document.createElement("div");
@@ -1261,7 +1278,6 @@
         mKpis.appendChild(chip);
       });
 
-      // Skills
       mSkills.innerHTML = "";
       p.skills.forEach(s => {
         const c = document.createElement("span");
@@ -1270,7 +1286,6 @@
         mSkills.appendChild(c);
       });
 
-      // Thumbs + main
       viewerThumbs.innerHTML = "";
       const items = p.items || [];
       if(items.length){
@@ -1312,7 +1327,6 @@
       modal.classList.add("open");
       modal.setAttribute("aria-hidden","false");
       closeBtn.focus();
-
       document.body.style.overflow = "hidden";
     }
 
@@ -1325,13 +1339,11 @@
 
     closeBtn.addEventListener("click", closeModal);
     backdrop.addEventListener("click", closeModal);
-
     document.addEventListener("keydown", (e) => {
       if(!modal.classList.contains("open")) return;
       if(e.key === "Escape") closeModal();
     });
 
-    // Init
     document.querySelector("#year").textContent = new Date().getFullYear();
     mountRails();
   </script>
