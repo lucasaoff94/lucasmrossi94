@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="theme-color" content="#070A12" />
   <title>Lucas Rossi • Portfolio</title>
-  <meta name="description" content="Portfolio de Lucas Rossi — Designer Visual & Motion. Social media, campanhas e motion com foco em performance." />
+  <meta name="description" content="Portfolio de Lucas Rossi — Designer Visual & Motion. Social media, campanhas, motion e projetos para performance." />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,6 +17,7 @@
       --bg:#070A12;
       --bg2:#0B1020;
       --surface:#0E1424;
+      --surface2:#111A2E;
       --text:#EAF0FF;
       --muted:#9AA7C7;
       --line:rgba(255,255,255,.08);
@@ -34,373 +35,1305 @@
 
     *{box-sizing:border-box}
     html,body{height:100%}
-
-    /* =====================================================
-       BACKGROUND FUTURISTA / ESPACIAL — OPÇÃO A
-    ===================================================== */
     body{
       margin:0;
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color:var(--text);
-      background:#070A12;
+      background:
+        radial-gradient(1200px 800px at 10% 10%, rgba(46,242,255,.10), transparent 55%),
+        radial-gradient(900px 650px at 80% 20%, rgba(138,92,255,.10), transparent 50%),
+        radial-gradient(900px 700px at 50% 95%, rgba(182,255,77,.06), transparent 55%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
       overflow-x:hidden;
     }
 
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
-      z-index:-2;
-      pointer-events:none;
-      background:
-        radial-gradient(1200px 700px at 15% 10%, rgba(46,242,255,.12), transparent 60%),
-        radial-gradient(900px 600px at 80% 20%, rgba(138,92,255,.12), transparent 55%),
-        radial-gradient(900px 700px at 50% 105%, rgba(182,255,77,.06), transparent 60%),
-        radial-gradient(2px 2px at 12% 18%, rgba(255,255,255,.22), transparent 60%),
-        radial-gradient(1px 1px at 35% 62%, rgba(255,255,255,.18), transparent 60%),
-        radial-gradient(2px 2px at 78% 40%, rgba(255,255,255,.20), transparent 60%),
-        linear-gradient(180deg, var(--bg), var(--bg2));
-    }
-
-    body::after{
-      content:"";
-      position:fixed;
-      inset:-2px;
-      z-index:-1;
-      pointer-events:none;
-      background:
-        radial-gradient(900px 500px at 15% 15%, rgba(46,242,255,.08), transparent 60%),
-        radial-gradient(900px 520px at 80% 20%, rgba(138,92,255,.08), transparent 60%);
-      filter: blur(8px);
-    }
-
-    a{color:inherit;text-decoration:none}
+    a{color:inherit; text-decoration:none}
     button{font-family:inherit}
 
-    /* =====================================================
-       TOPBAR
-    ===================================================== */
+    /* Top bar */
     .topbar{
-      position:sticky;top:0;z-index:50;
+      position:sticky; top:0; z-index:50;
       backdrop-filter: blur(10px);
-      background: rgba(7,10,18,.65);
-      border-bottom:1px solid var(--line);
+      background: rgba(7,10,18,.62);
+      border-bottom: 1px solid var(--line);
     }
     .topbar-inner{
-      max-width:var(--max);
+      max-width: var(--max);
       margin:0 auto;
       padding:14px 20px;
       display:flex;
-      justify-content:space-between;
       align-items:center;
+      justify-content:space-between;
+      gap:16px;
     }
-    .brand{display:flex;gap:12px;align-items:center}
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      min-width: 220px;
+    }
     .logo{
-      width:38px;height:38px;border-radius:14px;
+      width:40px; height:40px;
+      border-radius: 14px;
       background:
         radial-gradient(14px 14px at 30% 30%, rgba(46,242,255,.9), transparent 65%),
-        radial-gradient(16px 16px at 70% 65%, rgba(138,92,255,.9), transparent 65%);
-      border:1px solid rgba(255,255,255,.18);
-    }
-    .brand h1{margin:0;font-size:14px;font-family:Orbitron}
-    .brand p{margin:0;font-size:12px;color:var(--muted)}
-
-    .nav{display:flex;gap:10px}
-    .pill{
-      padding:10px 14px;
-      border-radius:999px;
+        radial-gradient(16px 16px at 70% 65%, rgba(138,92,255,.9), transparent 65%),
+        linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.02));
       border:1px solid rgba(255,255,255,.14);
-      background:rgba(255,255,255,.04);
+      box-shadow: 0 10px 30px rgba(46,242,255,.10);
+    }
+    .brand h1{
+      margin:0;
+      font-family: Orbitron, Inter, sans-serif;
+      letter-spacing:.6px;
+      font-size:14px;
+      line-height:1.1;
+    }
+    .brand p{
+      margin:2px 0 0 0;
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .pill{
+      padding:10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      color: var(--text);
       font-size:13px;
-      transition:.2s;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+      cursor:pointer;
+      user-select:none;
     }
-    .pill:hover{border-color:rgba(46,242,255,.4)}
+    .pill:hover{
+      transform: translateY(-1px);
+      border-color: rgba(46,242,255,.35);
+      background: rgba(46,242,255,.06);
+    }
     .pill.primary{
-      background:rgba(138,92,255,.18);
-      border-color:rgba(138,92,255,.5);
+      border-color: rgba(138,92,255,.38);
+      background: rgba(138,92,255,.10);
+    }
+    .pill.primary:hover{
+      border-color: rgba(138,92,255,.55);
+      background: rgba(138,92,255,.14);
     }
 
-    /* =====================================================
-       HERO BANNER (imagem inteira + blur)
-    ===================================================== */
-    .wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
+    /* Layout */
+    .wrap{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 20px;
+    }
 
-    .hero{padding:50px 0}
+    /* HERO (banner único) */
+    .hero{
+      padding: 56px 0 30px;
+      display:block;
+    }
 
     .hero-banner{
-      position:relative;
-      border-radius:var(--radius2);
+      border-radius: var(--radius2);
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: var(--shadow);
       overflow:hidden;
-      border:1px solid rgba(255,255,255,.14);
-      box-shadow:var(--shadow);
-      min-height:420px;
+      position:relative;
+      min-height: 420px;
+      background: rgba(255,255,255,.02);
     }
 
-    .hero-banner::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:url("assets/img/about/about-hero.jpg") center/cover no-repeat;
-      filter: blur(28px) saturate(1.1);
-      transform: scale(1.1);
-      opacity:.35;
-      z-index:0;
-    }
-
-    .hero-bg{
+    .hero-banner img.hero-bg{
       position:absolute;
       inset:0;
       width:100%;
       height:100%;
-      object-fit:contain;
-      z-index:1;
-      background:rgba(0,0,0,.25);
+      object-fit: cover;
+      opacity:.95;
+      transform: scale(1.02);
+      filter: saturate(1.05) contrast(1.05);
     }
 
     .hero-banner::after{
       content:"";
       position:absolute;
       inset:0;
-      background:linear-gradient(90deg, rgba(7,10,18,.92), rgba(7,10,18,.45));
-      z-index:2;
+      background:
+        linear-gradient(90deg, rgba(7,10,18,.92) 0%, rgba(7,10,18,.62) 48%, rgba(7,10,18,.20) 100%),
+        radial-gradient(700px 360px at 20% 20%, rgba(46,242,255,.12), transparent 60%),
+        radial-gradient(700px 360px at 80% 25%, rgba(138,92,255,.12), transparent 60%);
+      pointer-events:none;
     }
 
     .hero-content{
       position:relative;
-      z-index:3;
-      padding:26px;
+      z-index:2;
+      padding: 26px;
       display:grid;
-      grid-template-columns:1.3fr .7fr;
-      gap:20px;
-      height:100%;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 18px;
+      align-items:end;
     }
 
-    .kicker{font-size:12px;color:var(--muted);margin-bottom:10px}
-    .headline{
-      font-family:Orbitron;
-      font-size:clamp(26px,3.4vw,42px);
-      line-height:1.05;
-      margin:0;
-    }
-    .grad{
-      background:linear-gradient(90deg,var(--cyan),var(--purple));
-      -webkit-background-clip:text;
-      color:transparent;
-    }
-    .subhead{color:var(--muted);max-width:60ch}
-
-    .hero-actions{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
-
-    /* =====================================================
-       SOBRE (compacto)
-    ===================================================== */
-    .badge{
-      font-size:12px;
-      border:1px solid rgba(46,242,255,.4);
-      background:rgba(46,242,255,.12);
-      padding:8px 12px;
-      border-radius:999px;
+    .kicker{
       display:inline-flex;
       align-items:center;
-      gap:6px;
+      gap:10px;
+      font-size:12px;
+      color: var(--muted);
+      margin-bottom:12px;
+    }
+    .dot{
+      width:8px; height:8px; border-radius:999px;
+      background: var(--cyan);
+      box-shadow: 0 0 18px rgba(46,242,255,.7);
     }
 
-    .hero-mini{font-size:13px;color:var(--muted)}
+    .headline{
+      margin:0;
+      font-family: Orbitron, Inter, sans-serif;
+      font-size: clamp(26px, 3.4vw, 42px);
+      line-height:1.05;
+      letter-spacing:.4px;
+    }
+    .headline .grad{
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color: transparent;
+    }
 
-    .about-bullets{font-size:12px;color:var(--text)}
+    .subhead{
+      margin:14px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height:1.55;
+      max-width: 62ch;
+    }
 
-    /* =====================================================
-       GLASS TOOLS
-    ===================================================== */
-    .tool-glass{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+    .hero-actions{
+      margin-top:18px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+    }
+
+    .stats{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap:12px;
+    }
+    .stat{
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      padding: 12px 12px;
+      min-height: 72px;
+    }
+    .stat b{
+      display:block;
+      font-family: Orbitron, Inter, sans-serif;
+      letter-spacing:.4px;
+      font-size: 14px;
+      margin-bottom:6px;
+      color: var(--text);
+    }
+    .stat span{
+      display:block;
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height:1.35;
+    }
+
+    /* ABOUT dentro do HERO (lado direito) */
+    .hero-right{
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+      align-items:flex-end;
+      text-align:right;
+    }
+
+    .badge{
+      font-size:12px;
+      color: var(--text);
+      border: 1px solid rgba(46,242,255,.30);
+      background: rgba(46,242,255,.08);
+      padding: 8px 10px;
+      border-radius: 999px;
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      white-space:nowrap;
+      width: fit-content;
+    }
+    .badge i{
+      width:8px; height:8px; border-radius:999px;
+      background: var(--purple);
+      box-shadow: 0 0 18px rgba(138,92,255,.65);
+      display:inline-block;
+    }
+
+    .hero-mini{
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height:1.45;
+      max-width: 46ch;
+      margin:0;
+    }
+
+    .about-bullets{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      color: rgba(234,240,255,.88);
+      font-size: 12px;
+    }
+
+    /* Tool icons (glass buttons) */
+    .tool-glass{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top: 12px;
+    }
     .tool-btn{
-      width:44px;height:44px;
-      border-radius:14px;
-      display:grid;place-items:center;
-      border:1px solid rgba(255,255,255,.18);
-      background:rgba(255,255,255,.06);
+      width:46px;
+      height:46px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      backdrop-filter: blur(10px);
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+      user-select:none;
+      cursor: default;
+      position:relative;
+    }
+    .tool-btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.08);
+      border-color: rgba(46,242,255,.25);
     }
     .tool-icon{
-      width:28px;height:28px;
-      border-radius:10px;
-      display:grid;place-items:center;
-      font-weight:700;font-size:12px;
-      background:rgba(0,0,0,.35);
+      width:30px;
+      height:30px;
+      border-radius: 10px;
+      display:grid;
+      place-items:center;
+      font-family: Orbitron, Inter, sans-serif;
+      font-weight: 800;
+      letter-spacing:.2px;
+      font-size: 12px;
+      color: rgba(255,255,255,.95);
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.28);
+      box-shadow: 0 12px 30px rgba(0,0,0,.28);
     }
-    .ps{background:rgba(49,168,255,.35)}
-    .ai{background:rgba(255,159,0,.35)}
-    .ae{background:rgba(153,102,255,.35)}
-    .pr{background:rgba(153,153,255,.35)}
+    .tool-icon.ps{ background: rgba(49,168,255,.22); border-color: rgba(49,168,255,.35); }
+    .tool-icon.ai{ background: rgba(255,159,0,.22); border-color: rgba(255,159,0,.35); }
+    .tool-icon.ae{ background: rgba(153,102,255,.22); border-color: rgba(153,102,255,.35); }
+    .tool-icon.pr{ background: rgba(153,153,255,.22); border-color: rgba(153,153,255,.35); }
+    .sr-only{
+      position:absolute;
+      width:1px;height:1px;
+      padding:0;margin:-1px;
+      overflow:hidden;
+      clip:rect(0,0,0,0);
+      white-space:nowrap;
+      border:0;
+    }
 
-    /* =====================================================
-       SEÇÕES / ESTEIRAS
-    ===================================================== */
-    .section{padding:40px 0}
-    .section-head{margin-bottom:12px}
-    .rail{border-radius:var(--radius2);border:1px solid rgba(255,255,255,.12)}
+    .skills{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top: 10px;
+    }
+    .chip{
+      font-size:12px;
+      color: var(--text);
+      padding:8px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+    }
+    .chip.cyan{border-color: rgba(46,242,255,.22); background: rgba(46,242,255,.05)}
+    .chip.purple{border-color: rgba(138,92,255,.22); background: rgba(138,92,255,.06)}
+
+    /* Sections */
+    .section{
+      padding: 12px 0 40px;
+    }
+    .section-head{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:16px;
+      margin: 14px 0 12px;
+    }
+    .section-head h2{
+      margin:0;
+      font-family: Orbitron, Inter, sans-serif;
+      letter-spacing:.4px;
+      font-size: 18px;
+    }
+    .section-head p{
+      margin:0;
+      color: var(--muted);
+      font-size: 12.5px;
+    }
+
+    .rail{
+      position:relative;
+      border-radius: var(--radius2);
+      background: rgba(255,255,255,.02);
+      border: 1px solid rgba(255,255,255,.08);
+      overflow:hidden;
+    }
     .rail-inner{
       display:flex;
       gap:14px;
-      padding:16px;
-      overflow-x:auto;
+      padding: 16px;
+      overflow:auto;
+      scroll-snap-type:x mandatory;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(46,242,255,.25) rgba(255,255,255,.06);
     }
+    .rail-inner::-webkit-scrollbar{height:10px}
+    .rail-inner::-webkit-scrollbar-track{background: rgba(255,255,255,.06); border-radius:999px}
+    .rail-inner::-webkit-scrollbar-thumb{background: rgba(46,242,255,.25); border-radius:999px}
 
     .card{
-      width:260px;
-      flex:0 0 auto;
-      border-radius:16px;
+      scroll-snap-align:start;
+      width: clamp(210px, 26vw, 280px);
+      flex: 0 0 auto;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
       overflow:hidden;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(255,255,255,.05);
+      position:relative;
+      cursor:pointer;
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+      box-shadow: 0 12px 30px rgba(0,0,0,.35);
+    }
+    .card:hover{
+      transform: translateY(-2px) scale(1.02);
+      border-color: rgba(46,242,255,.35);
+      box-shadow: 0 18px 50px rgba(0,0,0,.55);
+    }
+    .card:focus-visible{
+      outline: 2px solid rgba(46,242,255,.65);
+      outline-offset: 3px;
     }
 
     .poster{
-      aspect-ratio:16/9;
+      aspect-ratio: 16/9;
+      background: radial-gradient(100% 120% at 20% 20%, rgba(46,242,255,.18), transparent 55%),
+                  radial-gradient(90% 120% at 90% 10%, rgba(138,92,255,.16), transparent 55%),
+                  linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      display:flex;
+      align-items:flex-end;
+      justify-content:flex-start;
+      padding: 14px;
       position:relative;
-      background:#000;
     }
-
     .poster img{
+      position:absolute;
+      inset:0;
       width:100%;
       height:100%;
       object-fit:cover;
+      opacity:.9;
+    }
+    .poster::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(0deg, rgba(7,10,18,.85), rgba(7,10,18,.20));
+      pointer-events:none;
+    }
+    .poster > *{position:relative; z-index:2}
+
+    .tag{
+      font-size:11px;
+      padding:6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(7,10,18,.55);
+      color: var(--text);
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+    }
+    .tag .glow{
+      width:8px; height:8px; border-radius:999px;
+      background: var(--cyan);
+      box-shadow: 0 0 16px rgba(46,242,255,.7);
     }
 
-    .meta{padding:12px}
-    .meta h3{margin:0;font-size:14px}
-    .meta p{margin:6px 0 0;font-size:12px;color:var(--muted)}
+    .meta{
+      padding: 12px 14px 14px;
+    }
+    .meta h3{
+      margin:0;
+      font-size: 14px;
+      letter-spacing:.2px;
+    }
+    .meta p{
+      margin:6px 0 0;
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.35;
+    }
 
-    /* =====================================================
-       MOBILE FIX DEFINITIVO
-    ===================================================== */
-    @media (max-width:520px){
-      .hero-content{grid-template-columns:1fr}
-      .hero-banner{min-height:520px}
+    /* Modal */
+    .modal{
+      position:fixed;
+      inset:0;
+      z-index:100;
+      display:none;
+    }
+    .modal.open{display:block}
+    .modal-backdrop{
+      position:absolute; inset:0;
+      background: rgba(0,0,0,.65);
+      backdrop-filter: blur(10px);
+    }
+    .modal-panel{
+      position:relative;
+      margin: 5vh auto;
+      max-width: min(var(--max), 92vw);
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(17,26,46,.92), rgba(14,20,36,.92));
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .modal-header{
+      padding: 18px 18px 12px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      border-bottom: 1px solid rgba(255,255,255,.10);
+    }
+    .modal-title{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      min-width: 0;
+    }
+    .modal-title h3{
+      margin:0;
+      font-family: Orbitron, Inter, sans-serif;
+      letter-spacing:.5px;
+      font-size: 18px;
+    }
+    .modal-title p{
+      margin:0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height:1.35;
+    }
+    .modal-close{
+      border:none;
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      border:1px solid rgba(255,255,255,.14);
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      cursor:pointer;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+    .modal-close:hover{
+      transform: translateY(-1px);
+      border-color: rgba(46,242,255,.35);
+      background: rgba(46,242,255,.06);
+    }
 
-      .card{
-        width:78vw;
-        max-width:320px;
+    .modal-body{
+      padding: 16px 18px 18px;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 16px;
+    }
+
+    .viewer{
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      overflow:hidden;
+      min-height: 320px;
+      display:flex;
+      flex-direction:column;
+    }
+    .viewer-main{
+      position:relative;
+      aspect-ratio: 16/9;
+      background: radial-gradient(120% 120% at 20% 20%, rgba(46,242,255,.12), transparent 55%),
+                  radial-gradient(120% 120% at 90% 10%, rgba(138,92,255,.12), transparent 55%),
+                  rgba(0,0,0,.25);
+    }
+    .viewer-main img, .viewer-main video{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .viewer-thumbs{
+      display:flex;
+      gap:10px;
+      padding: 12px;
+      overflow:auto;
+      border-top: 1px solid rgba(255,255,255,.10);
+    }
+    .thumb{
+      width: 110px;
+      flex: 0 0 auto;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.12);
+      overflow:hidden;
+      background: rgba(255,255,255,.03);
+      cursor:pointer;
+      transition: transform .16s ease, border-color .16s ease;
+      position:relative;
+    }
+    .thumb:hover{
+      transform: translateY(-1px);
+      border-color: rgba(46,242,255,.35);
+    }
+    .thumb.active{
+      border-color: rgba(138,92,255,.55);
+      box-shadow: 0 0 0 3px rgba(138,92,255,.18);
+    }
+    .thumb img{
+      width:100%; height:100%;
+      object-fit:cover;
+      display:block;
+      aspect-ratio: 16/9;
+    }
+    .thumb .play{
+      position:absolute;
+      right:8px; bottom:8px;
+      width:26px; height:26px;
+      border-radius: 10px;
+      background: rgba(7,10,18,.65);
+      border:1px solid rgba(255,255,255,.16);
+      display:grid;
+      place-items:center;
+      font-size:12px;
+    }
+
+    .info{
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      padding: 14px;
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+    }
+    .grid2{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap:10px;
+    }
+    .kv{
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.02);
+      padding: 10px;
+    }
+    .kv small{
+      display:block;
+      color: var(--muted);
+      font-size: 11.5px;
+      margin-bottom:6px;
+    }
+    .kv b{
+      font-size: 13px;
+      letter-spacing:.2px;
+    }
+    .desc{
+      color: var(--muted);
+      font-size: 13px;
+      line-height:1.55;
+      margin:0;
+    }
+    .kpi{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .kpi .chip{
+      padding:8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      font-size:12px;
+      color: var(--text);
+    }
+    .kpi .chip strong{
+      font-family: Orbitron, Inter, sans-serif;
+      letter-spacing:.4px;
+      margin-right:6px;
+      color: var(--cyan);
+    }
+
+    /* Footer */
+    footer{
+      padding: 28px 0 46px;
+      color: var(--muted);
+      font-size: 12.5px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.01);
+    }
+    .footer-inner{
+      max-width: var(--max);
+      margin:0 auto;
+      padding: 0 20px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero-content{
+        grid-template-columns: 1fr;
+        text-align:left;
       }
+      .hero-right{
+        align-items:flex-start;
+        text-align:left;
+      }
+      .hero-banner{
+        min-height: 560px;
+      }
+      .hero-banner::after{
+        background:
+          linear-gradient(0deg, rgba(7,10,18,.92) 0%, rgba(7,10,18,.62) 50%, rgba(7,10,18,.25) 100%),
+          radial-gradient(700px 360px at 20% 20%, rgba(46,242,255,.12), transparent 60%),
+          radial-gradient(700px 360px at 80% 25%, rgba(138,92,255,.12), transparent 60%);
+      }
+    }
 
+    /* =========================================================
+       PATCH 01 — MOBILE: capas não cortarem (cards da esteira)
+       Mantém desktop cover; no mobile vira contain.
+    ========================================================= */
+    @media (max-width: 768px){
       .poster{
-        aspect-ratio:16/11;
+        aspect-ratio: 16/10;
+        padding: 12px;
       }
-
       .poster img{
-        object-fit:contain;
-        background:rgba(0,0,0,.25);
+        object-fit: contain;
+        opacity: 1;
+        background: rgba(0,0,0,.15);
+      }
+      .poster::after{
+        background: linear-gradient(0deg, rgba(7,10,18,.78), rgba(7,10,18,.12));
+      }
+    }
+
+    /* =========================================================
+       PATCH 03 — MODAL no mobile: NÃO cortar imagens (contain)
+    ========================================================= */
+    @media (max-width: 768px){
+      .viewer-main{
+        aspect-ratio: auto;
+        height: min(62vh, 520px);
+      }
+      .viewer-main img,
+      .viewer-main video{
+        object-fit: contain;
+        background: rgba(0,0,0,.22);
       }
     }
   </style>
 </head>
 
 <body>
-
-<header class="topbar">
-  <div class="topbar-inner">
-    <div class="brand">
-      <div class="logo"></div>
-      <div>
-        <h1>Lucas Rossi</h1>
-        <p>Designer Visual & Motion</p>
-      </div>
-    </div>
-    <nav class="nav">
-      <a class="pill" href="#projetos">Projetos</a>
-      <a class="pill primary" href="#contato">Contato</a>
-    </nav>
-  </div>
-</header>
-
-<main class="wrap">
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-banner">
-      <img class="hero-bg" src="assets/img/about/about-hero.jpg" alt="Key visual Lucas Rossi">
-
-      <div class="hero-content">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
         <div>
-          <div class="kicker">Portfolio estilo Netflix • UX first • Tech visual</div>
-          <h2 class="headline">
-            Design que <span class="grad">segura atenção</span><br>
-            e entrega clareza.
-          </h2>
-          <p class="subhead">
-            Social media, campanhas e motion com foco em leitura rápida, hierarquia e intenção visual.
-          </p>
-          <div class="hero-actions">
-            <a class="pill primary" href="#projetos">Ver projetos</a>
-            <a class="pill" href="#contato">Freelas</a>
-          </div>
-        </div>
-
-        <div>
-          <span class="badge">Designer Pleno • visão de marketing</span>
-          <p class="hero-mini">
-            Menos estética vazia.<br>
-            Mais hierarquia, ritmo e conversão.
-          </p>
-
-          <div class="about-bullets">
-            • Social estratégico<br>
-            • Motion curto (Reels)<br>
-            • Consistência de marca
-          </div>
-
-          <div class="tool-glass">
-            <div class="tool-btn"><div class="tool-icon ps">Ps</div></div>
-            <div class="tool-btn"><div class="tool-icon ai">Ai</div></div>
-            <div class="tool-btn"><div class="tool-icon ae">Ae</div></div>
-            <div class="tool-btn"><div class="tool-icon pr">Pr</div></div>
-          </div>
+          <h1>Lucas Rossi</h1>
+          <p>Designer Visual & Motion • foco em performance</p>
         </div>
       </div>
+
+      <nav class="nav" aria-label="Navegação">
+        <a class="pill" href="#projetos">Projetos</a>
+        <a class="pill" href="#topo">Sobre</a>
+        <a class="pill primary" href="#contato">Contato</a>
+      </nav>
     </div>
-  </section>
+  </header>
 
-  <!-- PROJETOS -->
-  <section class="section" id="projetos">
-    <div class="section-head">
-      <h2>Projetos</h2>
-      <p class="subhead">Clique em um card para ver detalhes.</p>
+  <main class="wrap">
+    <!-- HERO (banner único com imagem) -->
+    <section class="hero" id="topo">
+      <div class="hero-banner">
+        <img class="hero-bg" src="assets/img/about/about-hero.jpg" alt="Key visual do perfil de Lucas Rossi" loading="lazy">
+
+        <div class="hero-content">
+          <!-- LEFT -->
+          <div>
+            <div class="kicker"><span class="dot"></span> Portfolio estilo Netflix • UX first • Tech Visual</div>
+            <h2 class="headline">
+              Design que <span class="grad">segura atenção</span><br/>
+              e entrega clareza pra converter.
+            </h2>
+            <p class="subhead">
+              Social media, campanhas e motion com direção visual consistente. Eu penso em estética + legibilidade + hierarquia + intenção
+              pra aproximar o visual de resultado.
+            </p>
+
+            <div class="hero-actions">
+              <a class="pill primary" href="#projetos">Ver projetos</a>
+              <a class="pill" href="#contato">Chamar pra freela</a>
+              <a class="pill" href="#" onclick="alert('Troque depois pelo seu LinkedIn/CV em PDF.'); return false;">LinkedIn / CV</a>
+            </div>
+
+            <div class="stats" aria-label="Destaques profissionais">
+              <div class="stat">
+                <b>Direção visual</b>
+                <span>Grid, tipografia, hierarquia, ritmo, consistência entre peças.</span>
+              </div>
+              <div class="stat">
+                <b>Performance mindset</b>
+                <span>Clareza de mensagem, contraste, CTA, leitura em 1s/3s.</span>
+              </div>
+              <div class="stat">
+                <b>Motion & ritmo</b>
+                <span>Animações curtas, transições limpas, foco no hook.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT (sobre reduzido) -->
+          <div class="hero-right" aria-label="Sobre mim">
+            <div class="badge"><i></i> Designer Pleno • visão de marketing</div>
+
+            <p class="hero-mini">
+              Eu organizo a informação antes de “embelezar”.
+              <br><b style="color:var(--text)">Hierarquia e clareza</b> primeiro — impacto depois.
+            </p>
+
+            <div class="about-bullets" style="justify-content:flex-end">
+              <span>• Social estratégico</span>
+              <span>• Motion curto (Reels)</span>
+              <span>• Consistência de marca</span>
+              <span>• Copy-aware design</span>
+            </div>
+
+            <div class="tool-glass" aria-label="Ferramentas principais" style="justify-content:flex-end">
+              <span class="tool-btn" title="Photoshop"><span class="tool-icon ps">Ps</span><span class="sr-only">Photoshop</span></span>
+              <span class="tool-btn" title="Illustrator"><span class="tool-icon ai">Ai</span><span class="sr-only">Illustrator</span></span>
+              <span class="tool-btn" title="After Effects"><span class="tool-icon ae">Ae</span><span class="sr-only">After Effects</span></span>
+              <span class="tool-btn" title="Premiere"><span class="tool-icon pr">Pr</span><span class="sr-only">Premiere</span></span>
+            </div>
+
+            <div class="skills" style="justify-content:flex-end; margin-top:0">
+              <span class="chip cyan">Layout / Grid</span>
+              <span class="chip purple">Tipografia</span>
+              <span class="chip cyan">Direção de arte</span>
+              <span class="chip purple">Campanhas</span>
+              <span class="chip">Marketing Digital</span>
+              <span class="chip">Design p/ social</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROWS -->
+    <section class="section" id="projetos">
+      <div class="section-head">
+        <div>
+          <h2>Social Media • Projetos principais</h2>
+          <p>Esteira estilo Netflix — clique em um card pra abrir o projeto com galeria.</p>
+        </div>
+        <div style="color:var(--muted); font-size:12.5px">
+          Dica: o recrutador decide em <b style="color:var(--text)">10 segundos</b>.
+        </div>
+      </div>
+
+      <div class="rail">
+        <div class="rail-inner" id="rail-social" aria-label="Projetos de social media"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>Motions • Reels & Animações</h2>
+          <p>Quando você enviar, eu já plugo. Por enquanto: placeholders.</p>
+        </div>
+        <div style="color:var(--muted); font-size:12.5px">Formato: MP4 / H.264</div>
+      </div>
+
+      <div class="rail">
+        <div class="rail-inner" id="rail-motion" aria-label="Projetos de motion"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>Stands & Eventos • (EFF Dental entra forte aqui)</h2>
+          <p>Deixa essa parte como “temporada 2” — mas já preparada pra receber os stands e painéis.</p>
+        </div>
+        <div style="color:var(--muted); font-size:12.5px">Alto impacto / print / eventos</div>
+      </div>
+
+      <div class="rail">
+        <div class="rail-inner" id="rail-stands" aria-label="Projetos de stands e eventos"></div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section" id="contato">
+      <div class="section-head">
+        <div>
+          <h2>Contato</h2>
+          <p>Quer me contratar ou conversar sobre vaga? Bora.</p>
+        </div>
+      </div>
+
+      <div class="hero-card" style="padding:18px; border-radius:22px">
+        <p class="subhead" style="margin:0">
+          <b style="color:var(--text)">Sugestão:</b> coloque aqui seus links (WhatsApp, e-mail, LinkedIn) e um “disponível para freelas”.
+        </p>
+        <div class="hero-actions" style="margin-top:14px">
+          <a class="pill primary" href="mailto:seuemail@exemplo.com">E-mail</a>
+          <a class="pill" href="#" onclick="alert('Troque pelo seu WhatsApp (wa.me).'); return false;">WhatsApp</a>
+          <a class="pill" href="#" onclick="alert('Troque pelo seu LinkedIn.'); return false;">LinkedIn</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div>© <span id="year"></span> Lucas Rossi • Portfolio</div>
+      <div>Tech UX • Netflix-style cards • Performance mindset</div>
     </div>
+  </footer>
 
-    <div class="rail">
-      <div class="rail-inner" id="rail-social"></div>
+  <!-- MODAL -->
+  <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-label="Detalhes do projeto">
+    <div class="modal-backdrop" id="modal-backdrop"></div>
+
+    <div class="modal-panel" role="document">
+      <div class="modal-header">
+        <div class="modal-title">
+          <h3 id="m-title">Projeto</h3>
+          <p id="m-sub">Descrição curta do projeto.</p>
+        </div>
+        <button class="modal-close" id="modal-close" aria-label="Fechar">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="viewer">
+          <div class="viewer-main" id="viewer-main"></div>
+          <div class="viewer-thumbs" id="viewer-thumbs" aria-label="Miniaturas do projeto"></div>
+        </div>
+
+        <aside class="info">
+          <div class="grid2">
+            <div class="kv">
+              <small>Tipo</small>
+              <b id="m-type">—</b>
+            </div>
+            <div class="kv">
+              <small>Entrega</small>
+              <b id="m-deliveries">—</b>
+            </div>
+            <div class="kv">
+              <small>Ferramentas</small>
+              <b id="m-tools">—</b>
+            </div>
+            <div class="kv">
+              <small>Papel</small>
+              <b id="m-role">—</b>
+            </div>
+          </div>
+
+          <p class="desc" id="m-desc">
+            Aqui entram contexto, objetivo e sua lógica de performance.
+          </p>
+
+          <div class="kpi" id="m-kpis" aria-label="Indicadores e heurísticas de performance"></div>
+
+          <div>
+            <div class="skills" id="m-skills"></div>
+          </div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap">
+            <a class="pill primary" href="#contato" onclick="closeModal()">Quero contratar você</a>
+            <a class="pill" href="#" onclick="alert('Depois podemos colocar: PDF do case / Behance / Drive.'); return false;">Ver case completo</a>
+          </div>
+        </aside>
+      </div>
     </div>
-  </section>
-
-</main>
-
-<footer class="section" id="contato">
-  <div class="section-head">
-    <h2>Contato</h2>
-    <p class="subhead">Aberto a freelas e oportunidades.</p>
   </div>
-  <a class="pill primary" href="mailto:lucasaoff@gmail.com">Enviar e-mail</a>
-</footer>
 
-<script>
-  const projects = [
-    { title:"Pix Solar", subtitle:"Social Media", cover:"assets/img/covers/cover-pixsolar.jpg" },
-    { title:"Unemix", subtitle:"Social Media", cover:"assets/img/covers/cover-unemix.jpg" },
-    { title:"Esportivo", subtitle:"Social Media", cover:"assets/img/covers/cover-esportivo.jpg" },
-    { title:"EDOC", subtitle:"Institucional", cover:"assets/img/covers/cover-edoc.jpg" }
-  ];
+  <script>
+    // =========================================
+    // DADOS DOS PROJETOS
+    // =========================================
+    const projects = [
+      {
+        id: "esportivo",
+        title: "Esportivo",
+        subtitle: "Cards estáticos + motion (1920x1080) • foco em impacto e leitura rápida",
+        tag: "Social Media",
+        cover: "assets/img/covers/cover-esportivo.jpg",
+        type: "Social / Sports",
+        deliveries: "6 cards + 1 motion",
+        tools: "Photoshop • After Effects",
+        role: "Direção visual + layout",
+        desc:
+          "Objetivo: capturar atenção em 1 segundo e manter legibilidade em feed. " +
+          "Estratégia: contraste forte, tipografia clara, hierarquia agressiva (título > destaque > detalhes), e consistência entre as peças para reforço de campanha.",
+        kpis: [
+          { label: "Leitura 1s", value: "Hook claro" },
+          { label: "Hierarquia", value: "Título manda" },
+          { label: "Contraste", value: "Alta legibilidade" },
+          { label: "Consistência", value: "Série coesa" },
+        ],
+        skills: ["Tipografia", "Grid", "Direção visual", "Ritmo de campanha", "Design para performance"],
+        items: [
+          { kind:"img", src:"assets/img/esportivo/esportivo-01.jpg" },
+          { kind:"img", src:"assets/img/esportivo/esportivo-02.jpg" },
+          { kind:"img", src:"assets/img/esportivo/esportivo-03.jpg" },
+          { kind:"img", src:"assets/img/esportivo/esportivo-04.jpg" },
+          { kind:"img", src:"assets/img/esportivo/esportivo-05.jpg" },
+          { kind:"img", src:"assets/img/esportivo/esportivo-06.jpg" },
+          { kind:"video", src:"assets/video/esportivo/esportivo-motion-01.mp4" },
+        ],
+      },
+      {
+        id: "pixsolar",
+        title: "Pix Solar",
+        subtitle: "Carrossel/peças • visual direto pra conversão",
+        tag: "Social Media",
+        cover: "assets/img/covers/cover-pixsolar.jpg",
+        type: "Social / Performance",
+        deliveries: "6 cards",
+        tools: "Photoshop",
+        role: "Criação + refinamento de UI visual",
+        desc:
+          "Objetivo: comunicar proposta de valor sem enrolar, com layout que guia o olho até o CTA. " +
+          "Estratégia: blocos de informação, spacing consistente, contraste e padrões visuais para reconhecimento rápido de marca.",
+        kpis: [
+          { label: "Clareza", value: "PV em 3s" },
+          { label: "Escaneabilidade", value: "Blocos" },
+          { label: "CTA", value: "Visível" },
+          { label: "Brand", value: "Consistente" },
+        ],
+        skills: ["Design orientado a copy", "Composição", "Consistência de marca", "Hierarquia", "Design para social"],
+        items: [
+          { kind:"img", src:"assets/img/pixsolar/pixsolar-01.jpg" },
+          { kind:"img", src:"assets/img/pixsolar/pixsolar-02.jpg" },
+          { kind:"img", src:"assets/img/pixsolar/pixsolar-03.png" },
+          { kind:"img", src:"assets/img/pixsolar/pixsolar-04.png" },
+          { kind:"img", src:"assets/img/pixsolar/pixsolar-05.jpg" },
+          { kind:"img", src:"assets/img/pixsolar/pixsolar-06.jpg" },
+        ],
+      },
+      {
+        id: "unemix",
+        title: "Unemix",
+        subtitle: "6 cards + 1 motion (1080x1920) • desejo imediato + feed clean",
+        tag: "Social Media",
+        cover: "assets/img/covers/cover-unemix.jpg",
+        type: "Social / Food",
+        deliveries: "6 cards + 1 motion",
+        tools: "Photoshop • After Effects",
+        role: "Direção visual + execução",
+        desc:
+          "Objetivo: provocar desejo e acelerar decisão. " +
+          "Estratégia: imagem forte, textos mínimos, ritmo visual e padronização para aumentar reconhecimento do feed.",
+        kpis: [
+          { label: "Food trigger", value: "Fome na hora" },
+          { label: "Textos", value: "Mínimos" },
+          { label: "Ritmo", value: "Esteira coesa" },
+          { label: "Brand recall", value: "Padrão" },
+        ],
+        skills: ["Direção de arte", "Composição", "Motion curto", "Sistema visual", "Social premium"],
+        items: [
+          { kind:"img", src:"assets/img/unemix/unemix-01.png" },
+          { kind:"img", src:"assets/img/unemix/unemix-02.png" },
+          { kind:"img", src:"assets/img/unemix/unemix-03.png" },
+          { kind:"img", src:"assets/img/unemix/unemix-04.jpg" },
+          { kind:"img", src:"assets/img/unemix/unemix-05.jpg" },
+          { kind:"img", src:"assets/img/unemix/unemix-06.jpg" },
+          { kind:"video", src:"assets/video/unemix/unemix-motion-01.mp4" },
+        ],
+      },
+      {
+        id: "edoc",
+        title: "EDOC",
+        subtitle: "4 cards • comunicação limpa, institucional e objetiva",
+        tag: "Social Media",
+        cover: "assets/img/covers/cover-edoc.jpg",
+        type: "Social / Institucional",
+        deliveries: "4 cards",
+        tools: "Photoshop",
+        role: "Layout + consistência visual",
+        desc:
+          "Objetivo: comunicar com credibilidade e leitura imediata. " +
+          "Estratégia: tipografia sólida, espaçamento e hierarquia para transmitir confiança e facilitar o consumo do conteúdo.",
+        kpis: [
+          { label: "Legibilidade", value: "Alta" },
+          { label: "Credibilidade", value: "Tom certo" },
+          { label: "Ordem", value: "Hierarquia" },
+          { label: "Consistência", value: "Padrão" },
+        ],
+        skills: ["Tipografia", "Grid", "Design institucional", "Clareza", "Padronização"],
+        items: [
+          { kind:"img", src:"assets/img/edoc/edoc-01.png" },
+          { kind:"img", src:"assets/img/edoc/edoc-02.jpg" },
+          { kind:"img", src:"assets/img/edoc/edoc-03.png" },
+          { kind:"img", src:"assets/img/edoc/edoc-04.jpg" },
+        ],
+      },
+      {
+        id: "effdental",
+        title: "EFF Dental (em curadoria)",
+        subtitle: "Stands • painéis • eventos • temporada 2",
+        tag: "Stands & Eventos",
+        cover: "assets/img/covers/cover-effdental.jpg",
+        type: "Eventos / Print / Digital Signage",
+        deliveries: "Stands + painéis + KV",
+        tools: "Photoshop • Illustrator • (AE/3D se entrar)",
+        role: "Direção visual + desdobramentos",
+        desc:
+          "Esse bloco vai virar o projeto mais forte do portfólio: evento, escala, impacto e consistência. " +
+          "Aqui a gente vai montar como case premium (problema → solução → execução → resultados).",
+        kpis: [
+          { label: "Escala", value: "Alta" },
+          { label: "Consistência", value: "Brand system" },
+          { label: "Impacto", value: "Evento" },
+          { label: "Execução", value: "Print + digital" },
+        ],
+        skills: ["Direção de arte", "Print", "Eventos", "Sinalização", "Desdobramentos"],
+        items: [
+          { kind:"img", src:"assets/img/effdental/effdental-stand-01.jpg" },
+          { kind:"img", src:"assets/img/effdental/effdental-stand-02.jpg" },
+          { kind:"img", src:"assets/img/effdental/effdental-tv-01.jpg" },
+          { kind:"img", src:"assets/img/effdental/effdental-tv-02.jpg" },
+        ],
+      },
+    ];
 
-  const rail = document.getElementById("rail-social");
+    // Separação por esteiras
+    const socialIds = ["esportivo","pixsolar","unemix","edoc","effdental"];
+    const motionIds = ["esportivo","unemix"];
+    const standsIds = ["effdental"];
 
-  projects.forEach(p=>{
-    const c=document.createElement("div");
-    c.className="card";
-    c.innerHTML=`
-      <div class="poster"><img src="${p.cover}" alt=""></div>
-      <div class="meta"><h3>${p.title}</h3><p>${p.subtitle}</p></div>
-    `;
-    rail.appendChild(c);
-  });
-</script>
+    const $ = (sel) => document.querySelector(sel);
+    const railSocial = $("#rail-social");
+    const railMotion = $("#rail-motion");
+    const railStands = $("#rail-stands");
 
+    function buildCard(p){
+      const card = document.createElement("button");
+      card.className = "card";
+      card.type = "button";
+      card.setAttribute("aria-label", `Abrir projeto ${p.title}`);
+
+      const poster = document.createElement("div");
+      poster.className = "poster";
+
+      const img = document.createElement("img");
+      img.alt = `Capa do projeto ${p.title}`;
+      img.src = p.cover;
+      img.loading = "lazy";
+      img.onerror = () => { img.style.display = "none"; };
+
+      const tag = document.createElement("div");
+      tag.className = "tag";
+      tag.innerHTML = `<span class="glow"></span>${p.tag}`;
+
+      poster.appendChild(img);
+      poster.appendChild(tag);
+
+      const meta = document.createElement("div");
+      meta.className = "meta";
+      meta.innerHTML = `<h3>${p.title}</h3><p>${p.subtitle}</p>`;
+
+      card.appendChild(poster);
+      card.appendChild(meta);
+
+      card.addEventListener("click", () => openModal(p.id));
+      return card;
+    }
+
+    function mountRails(){
+      socialIds.forEach(id => railSocial.appendChild(buildCard(projects.find(p=>p.id===id))));
+      motionIds.forEach(id => railMotion.appendChild(buildCard(projects.find(p=>p.id===id))));
+      standsIds.forEach(id => railStands.appendChild(buildCard(projects.find(p=>p.id===id))));
+    }
+
+    // Modal
+    const modal = $("#modal");
+    const backdrop = $("#modal-backdrop");
+    const closeBtn = $("#modal-close");
+
+    const mTitle = $("#m-title");
+    const mSub = $("#m-sub");
+    const mType = $("#m-type");
+    const mDeliveries = $("#m-deliveries");
+    const mTools = $("#m-tools");
+    const mRole = $("#m-role");
+    const mDesc = $("#m-desc");
+    const mKpis = $("#m-kpis");
+    const mSkills = $("#m-skills");
+
+    const viewerMain = $("#viewer-main");
+    const viewerThumbs = $("#viewer-thumbs");
+
+    let lastFocused = null;
+
+    function renderMain(item){
+      viewerMain.innerHTML = "";
+      if(item.kind === "video"){
+        const v = document.createElement("video");
+        v.src = item.src;
+        v.controls = true;
+        v.playsInline = true;
+        v.preload = "metadata";
+        viewerMain.appendChild(v);
+      }else{
+        const img = document.createElement("img");
+        img.src = item.src;
+        img.alt = "Preview do projeto";
+        img.loading = "eager";
+        img.onerror = () => {
+          viewerMain.innerHTML = `<div style="padding:16px;color:var(--muted)">Envie o arquivo em: <b style="color:var(--text)">${item.src}</b></div>`;
+        };
+        viewerMain.appendChild(img);
+      }
+    }
+
+    function openModal(projectId){
+      const p = projects.find(x => x.id === projectId);
+      if(!p) return;
+
+      lastFocused = document.activeElement;
+
+      mTitle.textContent = p.title;
+      mSub.textContent = p.subtitle;
+      mType.textContent = p.type;
+      mDeliveries.textContent = p.deliveries;
+      mTools.textContent = p.tools;
+      mRole.textContent = p.role;
+      mDesc.textContent = p.desc;
+
+      // KPIs
+      mKpis.innerHTML = "";
+      p.kpis.forEach(k => {
+        const chip = document.createElement("div");
+        chip.className = "chip";
+        chip.innerHTML = `<strong>${k.label}:</strong> ${k.value}`;
+        mKpis.appendChild(chip);
+      });
+
+      // Skills
+      mSkills.innerHTML = "";
+      p.skills.forEach(s => {
+        const c = document.createElement("span");
+        c.className = "chip";
+        c.textContent = s;
+        mSkills.appendChild(c);
+      });
+
+      // Thumbs + main
+      viewerThumbs.innerHTML = "";
+      const items = p.items || [];
+      if(items.length){
+        items.forEach((it, idx) => {
+          const t = document.createElement("button");
+          t.type = "button";
+          t.className = "thumb" + (idx === 0 ? " active" : "");
+          t.setAttribute("aria-label", `Abrir item ${idx+1}`);
+
+          const im = document.createElement("img");
+          im.alt = "Miniatura";
+          im.src = it.kind === "video" ? p.cover : it.src;
+          im.loading = "lazy";
+          im.onerror = () => { im.style.display="none"; };
+
+          t.appendChild(im);
+
+          if(it.kind === "video"){
+            const play = document.createElement("div");
+            play.className = "play";
+            play.textContent = "▶";
+            t.appendChild(play);
+          }
+
+          t.addEventListener("click", () => {
+            [...viewerThumbs.children].forEach(x => x.classList.remove("active"));
+            t.classList.add("active");
+            renderMain(it);
+          });
+
+          viewerThumbs.appendChild(t);
+        });
+
+        renderMain(items[0]);
+      } else {
+        viewerMain.innerHTML = `<div style="padding:16px;color:var(--muted)">Sem itens no projeto ainda.</div>`;
+      }
+
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden","false");
+      closeBtn.focus();
+
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeModal(){
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden","true");
+      document.body.style.overflow = "";
+      if(lastFocused && lastFocused.focus) lastFocused.focus();
+    }
+
+    closeBtn.addEventListener("click", closeModal);
+    backdrop.addEventListener("click", closeModal);
+
+    document.addEventListener("keydown", (e) => {
+      if(!modal.classList.contains("open")) return;
+      if(e.key === "Escape") closeModal();
+    });
+
+    // Init
+    document.querySelector("#year").textContent = new Date().getFullYear();
+    mountRails();
+  </script>
 </body>
 </html>
